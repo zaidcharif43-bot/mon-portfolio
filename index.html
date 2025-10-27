@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Plateforme des Ateliers</title>
+    <style>
+        /* Reset et styles de base */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #fff5e6 0%, #ffe0b3 100%);
+            min-height: 100vh;
+            padding-top: 80px;
+        }
+
+        /* Header fixe */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background: linear-gradient(135deg, #ff9500 0%, #ffcc00 100%);
+            padding: 1.2rem 2rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+        }
+
+        nav {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 3rem;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 3rem;
+        }
+
+        .user-profile {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            color: white;
+            font-weight: 600;
+            padding: 0.5rem 1.2rem;
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 25px;
+            transition: all 0.3s ease;
+        }
+
+        .user-profile:hover {
+            background: rgba(255, 255, 255, 0.25);
+        }
+
+        .user-icon {
+            width: 35px;
+            height: 35px;
+            background: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #ff9500;
+            font-weight: bold;
+            font-size: 1rem;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-size: 1.1rem;
+            font-weight: 600;
+            padding: 0.5rem 1.5rem;
+            border-radius: 25px;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        nav a:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+        }
+
+        /* Container principal */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        /* Section Hero */
+        .hero {
+            text-align: center;
+            padding: 3rem 2rem;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            margin-bottom: 3rem;
+        }
+
+        .hero h1 {
+            font-size: 2.5rem;
+            color: #ff9500;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, #ff9500 0%, #ffcc00 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            color: #666;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        /* Section des ateliers */
+        .ateliers-section {
+            margin-top: 2rem;
+        }
+
+        .section-title {
+            font-size: 2rem;
+            color: #333;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        /* Grille des cartes d'ateliers */
+        .ateliers-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        /* Carte d'atelier */
+        .atelier-card {
+            background: white;
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: block;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .atelier-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, #ff9500 0%, #ffcc00 100%);
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+
+        .atelier-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+        }
+
+        .atelier-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .atelier-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #ff9500 0%, #ffcc00 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+        }
+
+        .atelier-title {
+            font-size: 1.3rem;
+            color: #333;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+
+        .atelier-description {
+            color: #666;
+            font-size: 0.95rem;
+            margin-bottom: 1rem;
+        }
+
+        .atelier-badge {
+            display: inline-block;
+            padding: 0.3rem 0.8rem;
+            background: #fff3e0;
+            color: #ff9500;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        /* Section catégories */
+        .category-section {
+            margin-bottom: 3rem;
+        }
+
+        .category-header {
+            background: white;
+            padding: 1rem 1.5rem;
+            border-radius: 10px;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        .category-title {
+            font-size: 1.5rem;
+            color: #ff9500;
+            font-weight: 600;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            nav {
+                gap: 1rem;
+                flex-direction: column;
+            }
+
+            .nav-links {
+                gap: 1rem;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            nav a {
+                font-size: 0.95rem;
+                padding: 0.4rem 1rem;
+            }
+
+            .user-profile {
+                padding: 0.4rem 1rem;
+                font-size: 0.9rem;
+            }
+
+            .user-icon {
+                width: 30px;
+                height: 30px;
+                font-size: 0.9rem;
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .hero p {
+                font-size: 1rem;
+            }
+
+            .ateliers-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+
+            .container {
+                padding: 1rem;
+            }
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 2rem;
+            color: #666;
+            margin-top: 3rem;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header fixe avec navigation -->
+    <header>
+        <nav>
+            <div class="nav-links">
+                <a href="#home">Home</a>
+                <a href="#tsql">T-SQL</a>
+                <a href="#mongodb">MongoDB</a>
+            </div>
+            <div class="user-profile">
+                <div class="user-icon">ZC</div>
+                <span>Zaid Charif Nejjar</span>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Container principal -->
+    <div class="container">
+        <!-- Section Hero -->
+        <section class="hero" id="home">
+            <h1>Plateforme des Ateliers</h1>
+            <p>Bienvenue sur la plateforme des ateliers de bases de données. Explorez nos différents ateliers pratiques et accédez aux rapports détaillés pour chaque session.</p>
+        </section>
+
+        <!-- Section T-SQL -->
+        <section class="category-section" id="tsql">
+            <div class="category-header">
+                <h2 class="category-title">Ateliers T-SQL</h2>
+            </div>
+            <div class="ateliers-grid">
+                <a href="Création de la base .pdf" target="_blank" class="atelier-card">
+                    <div class="atelier-icon">1</div>
+                    <h3 class="atelier-title">Atelier 1 - Création des tables</h3>
+                    <p class="atelier-description">• Création des tables et insertion des données<br>• Définition des clés primaires et étrangères<br>• Insertion de données de test</p>
+                    <span class="atelier-badge">T-SQL</span>
+                </a>
+
+        
+            </div>
+        </section>
+
+        <!-- Section MongoDB -->
+        <section class="category-section" id="mongodb">
+            <div class="category-header">
+                <h2 class="category-title">Ateliers MongoDB</h2>
+            </div>
+            <div class="ateliers-grid">
+                <a href="rapport_mongodb_1.pdf" target="_blank" class="atelier-card">
+                    <div class="atelier-icon">1</div>
+                    <h3 class="atelier-title">Atelier 1 - Création des collections</h3>
+                    <p class="atelier-description">• Création de collections MongoDB<br>• Insertion de documents<br>• Structure JSON et validation</p>
+                    <span class="atelier-badge">MongoDB</span>
+                </a>
+
+                <a href="rapport_mongodb_2.pdf" target="_blank" class="atelier-card">
+                    <div class="atelier-icon">2</div>
+                    <h3 class="atelier-title">Atelier 2 - Opérations CRUD</h3>
+                    <p class="atelier-description">• Create: insertOne, insertMany<br>• Read: find, findOne<br>• Update: updateOne, updateMany<br>• Delete: deleteOne, deleteMany</p>
+                    <span class="atelier-badge">MongoDB</span>
+                </a>
+
+                <a href="rapport_mongodb_3.pdf" target="_blank" class="atelier-card">
+                    <div class="atelier-icon">3</div>
+                    <h3 class="atelier-title">Atelier 3 - Aggregation Pipeline</h3>
+                    <p class="atelier-description">• Pipeline avec $match et $group<br>• Fonctions $sum, $avg, $count<br>• Opérateurs $project et $sort</p>
+                    <span class="atelier-badge">MongoDB</span>
+                </a>
+
+                <a href="rapport_mongodb_4.pdf" target="_blank" class="atelier-card">
+                    <div class="atelier-icon">4</div>
+                    <h3 class="atelier-title">Atelier 4 - Opérateurs conditionnels</h3>
+                    <p class="atelier-description">• Utilisation de $cond (équivalent IF)<br>• Opérateurs de comparaison<br>• Expressions conditionnelles complexes</p>
+                    <span class="atelier-badge">MongoDB</span>
+                </a>
+
+                <a href="rapport_mongodb_5.pdf" target="_blank" class="atelier-card">
+                    <div class="atelier-icon">5</div>
+                    <h3 class="atelier-title">Atelier 5 - Indexation MongoDB</h3>
+                    <p class="atelier-description">• Création d'index avec createIndex()<br>• Vérification avec explain()<br>• Index composés et performance</p>
+                    <span class="atelier-badge">MongoDB</span>
+                </a>
+
+                <a href="rapport_mongodb_6.pdf" target="_blank" class="atelier-card">
+                    <div class="atelier-icon">6</div>
+                    <h3 class="atelier-title">Atelier 6 - Vues MongoDB</h3>
+                    <p class="atelier-description">• Création de vues avec createView()<br>• Lecture des vues<br>• Agrégations pré-calculées</p>
+                    <span class="atelier-badge">MongoDB</span>
+                </a>
+
+                <a href="rapport_mongodb_7.pdf" target="_blank" class="atelier-card">
+                    <div class="atelier-icon">7</div>
+                    <h3 class="atelier-title">Atelier 7 - Gestion des rôles</h3>
+                    <p class="atelier-description">• Création d'utilisateurs<br>• Attribution de rôles avec grantRolesToUser<br>• Vérification avec show users</p>
+                    <span class="atelier-badge">MongoDB</span>
+                </a>
+
+                <a href="rapport_mongodb_8.pdf" target="_blank" class="atelier-card">
+                    <div class="atelier-icon">8</div>
+                    <h3 class="atelier-title">Atelier 8 - Requêtes avancées</h3>
+                    <p class="atelier-description">• Jointures avec $lookup<br>• Sous-requêtes et pipelines imbriqués<br>• Optimisation des requêtes complexes</p>
+                    <span class="atelier-badge">MongoDB</span>
+                </a>
+
+                <a href="rapport_mongodb_9.pdf" target="_blank" class="atelier-card">
+                    <div class="atelier-icon">9</div>
+                    <h3 class="atelier-title">Atelier 9 - Limitation des résultats</h3>
+                    <p class="atelier-description">• Utilisation de limit()<br>• Pagination avec skip() et limit()<br>• Tri des résultats avec sort()</p>
+                    <span class="atelier-badge">MongoDB</span>
+                </a>
+            </div>
+        </section>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2025 Plateforme des Ateliers - Tous droits réservés</p>
+    </footer>
+</body>
+</html>
