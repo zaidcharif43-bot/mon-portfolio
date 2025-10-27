@@ -1,0 +1,12 @@
+stages:
+  - deploy
+
+pages:
+  stage: deploy
+  script:
+    - echo "Déploiement GitLab Pages du site Figrbay"
+  artifacts:
+    paths:
+      - public
+  only:
+    - main
