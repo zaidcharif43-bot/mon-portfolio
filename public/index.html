@@ -3,143 +3,596 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Plateforme des Ateliers</title>
+    <title>Portfolio de Zaid Charif Nejjar</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
+        /* Variables CSS */
+        :root {
+            --primary: #10b981;
+            --primary-light: #34d399;
+            --primary-dark: #059669;
+            --secondary: #047857;
+            --secondary-light: #065f46;
+            --dark: #1e1e2c;
+            --light: #f8fafc;
+            --gray: #6b7280;
+            --gray-light: #e5e7eb;
+            --success: #10b981;
+            --card-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            --transition: all 0.3s ease;
+        }
+
         /* Reset et styles de base */
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+        * { 
+            margin: 0; 
+            padding: 0; 
+            box-sizing: border-box; 
+        }
+        
+        html {
+            scroll-behavior: smooth;
+        }
+        
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             line-height: 1.6;
-            color: #333;
-            background: linear-gradient(135deg, #fff5e6 0%, #ffe0b3 100%);
-            min-height: 100vh;
-            padding-top: 80px;
+            color: var(--dark);
+            background-color: var(--light);
+            overflow-x: hidden;
         }
 
         /* Header fixe */
         header {
-            position: fixed; top: 0; left: 0; width: 100%;
-            background: linear-gradient(135deg, #ff9500 0%, #ffcc00 100%);
-            padding: 1.2rem 2rem; box-shadow: 0 4px 6px rgba(0,0,0,0.1); z-index: 1000;
+            position: fixed; 
+            top: 0; 
+            left: 0; 
+            width: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 1.2rem 2rem; 
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05); 
+            z-index: 1000;
+            transition: var(--transition);
         }
 
-        nav { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; gap: 3rem; }
-        .nav-links { display: flex; gap: 1.2rem; align-items:center; }
-        .nav-links a {
-            color: white; text-decoration: none; font-size: 1.05rem; font-weight: 600;
-            padding: 0.5rem 1rem; border-radius: 20px; transition: all 0.2s ease;
+        nav { 
+            max-width: 1200px; 
+            margin: 0 auto; 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+            gap: 3rem; 
         }
-        .nav-links a:hover { background: rgba(255,255,255,0.12); transform: translateY(-2px); }
+        
+        .logo {
+            font-weight: 800;
+            font-size: 1.5rem;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .nav-links { 
+            display: flex; 
+            gap: 1.5rem; 
+            align-items:center; 
+        }
+        
+        .nav-links a {
+            color: var(--dark); 
+            text-decoration: none; 
+            font-size: 1rem; 
+            font-weight: 600;
+            padding: 0.5rem 1rem; 
+            border-radius: 20px; 
+            transition: var(--transition);
+            position: relative;
+        }
+        
+        .nav-links a:hover { 
+            color: var(--primary); 
+        }
+        
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            width: 0;
+            height: 2px;
+            background: var(--primary);
+            transition: var(--transition);
+            transform: translateX(-50%);
+        }
+        
+        .nav-links a:hover::after {
+            width: 80%;
+        }
 
         .user-profile {
-            display: flex; align-items: center; gap: 0.8rem; color: white; font-weight: 600;
-            padding: 0.5rem 1.2rem; background: rgba(255,255,255,0.15); border-radius: 25px;
+            display: flex; 
+            align-items: center; 
+            gap: 0.8rem; 
+            color: var(--dark); 
+            font-weight: 600;
+            padding: 0.5rem 1.2rem; 
+            background: rgba(16, 185, 129, 0.08); 
+            border-radius: 25px;
+            transition: var(--transition);
         }
+        
+        .user-profile:hover {
+            background: rgba(16, 185, 129, 0.12);
+        }
+        
         .user-icon {
-            width: 35px; height: 35px; background: white; border-radius: 50%;
-            display: flex; align-items: center; justify-content: center; color: #ff9500; font-weight: bold;
+            width: 35px; 
+            height: 35px; 
+            background: linear-gradient(135deg, var(--primary), var(--secondary)); 
+            border-radius: 50%;
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            color: white; 
+            font-weight: bold;
+        }
+
+        /* Hero Section */
+        .hero-section {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding: 2rem;
+            background: linear-gradient(135deg, #f0fdf9 0%, #e6f7f2 100%);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.1) 0%, rgba(4, 120, 87, 0.1) 100%);
+            top: -100px;
+            right: -100px;
+        }
+        
+        .hero-section::after {
+            content: '';
+            position: absolute;
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, rgba(52, 211, 153, 0.1) 0%, rgba(16, 185, 129, 0.1) 100%);
+            bottom: -50px;
+            left: -50px;
+        }
+        
+        .hero-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .hero-text {
+            text-align: center;
+        }
+        
+        .hero-text h1 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .hero-text p {
+            font-size: 1.2rem;
+            color: var(--gray);
+            margin-bottom: 2rem;
+            max-width: 90%;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .hero-btns {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+        }
+        
+        .btn {
+            padding: 0.8rem 1.8rem;
+            border-radius: 30px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3);
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(16, 185, 129, 0.4);
+        }
+        
+        .btn-outline {
+            border: 2px solid var(--primary);
+            color: var(--primary);
+        }
+        
+        .btn-outline:hover {
+            background: var(--primary);
+            color: white;
+            transform: translateY(-3px);
+        }
+        
+        .hero-image {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .profile-card {
+            background: white;
+            border-radius: 20px;
+            padding: 2rem;
+            box-shadow: var(--card-shadow);
+            text-align: center;
+            max-width: 350px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .profile-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 8px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+        }
+        
+        .profile-img {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            margin: 0 auto 1.5rem;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 3rem;
+            font-weight: bold;
+        }
+        
+        .profile-card h2 {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+            color: var(--dark);
+        }
+        
+        .profile-card p {
+            color: var(--gray);
+            margin-bottom: 1.5rem;
+        }
+        
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+        }
+        
+        .social-links a {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(16, 185, 129, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary);
+            transition: var(--transition);
+        }
+        
+        .social-links a:hover {
+            background: var(--primary);
+            color: white;
+            transform: translateY(-3px);
         }
 
         /* Container principal */
-        .container { max-width: 1200px; margin: 0 auto; padding: 2rem; }
-
-        /* Hero */
-        .hero {
-            text-align: center; padding: 3rem 2rem; background: white; border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1); margin-bottom: 2.5rem;
+        .container { 
+            max-width: 1200px; 
+            margin: 0 auto; 
+            padding: 5rem 2rem; 
         }
-        .hero h1 {
-            font-size: 2.2rem; color: #ff9500; margin-bottom: 1rem;
-            background: linear-gradient(135deg, #ff9500 0%, #ffcc00 100%);
-            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-        }
-        .hero p { font-size: 1.05rem; color: #666; max-width: 820px; margin: 0 auto; }
 
         /* Section */
-        .category-section { margin-top: 1.5rem; }
-        .category-header { background: white; padding: 1rem 1.5rem; border-radius: 10px; margin-bottom: 1rem; box-shadow: 0 3px 10px rgba(0,0,0,0.05); display:flex; justify-content:space-between; align-items:center; }
-        .category-title { font-size: 1.25rem; color: #333; font-weight: 700; }
-        .category-sub { color:#6b7280; font-size:0.95rem; }
+        .category-section { 
+            margin-top: 3rem; 
+        }
+        
+        .section-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+        
+        .section-header h2 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--dark);
+        }
+        
+        .section-header p {
+            font-size: 1.1rem;
+            color: var(--gray);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .category-header { 
+            background: white; 
+            padding: 1.5rem 2rem; 
+            border-radius: 15px; 
+            margin-bottom: 2rem; 
+            box-shadow: var(--card-shadow); 
+            display:flex; 
+            justify-content:space-between; 
+            align-items:center; 
+            transition: var(--transition);
+        }
+        
+        .category-header:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+        }
+        
+        .category-title { 
+            font-size: 1.5rem; 
+            color: var(--dark); 
+            font-weight: 700; 
+        }
+        
+        .category-sub { 
+            color: var(--gray); 
+            font-size: 1rem; 
+        }
 
         /* Grille cartes */
-        .ateliers-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; }
+        .ateliers-grid { 
+            display: grid; 
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); 
+            gap: 2rem; 
+        }
 
         .atelier-card {
-            background: white; border-radius: 12px; padding: 1.6rem; box-shadow: 0 6px 18px rgba(0,0,0,0.06);
-            transition: transform 0.25s ease, box-shadow 0.25s ease; text-decoration: none; color: inherit; position: relative; overflow: hidden;
+            background: white; 
+            border-radius: 15px; 
+            padding: 2rem; 
+            box-shadow: var(--card-shadow);
+            transition: var(--transition); 
+            text-decoration: none; 
+            color: inherit; 
+            position: relative; 
+            overflow: hidden;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
         }
+        
         .atelier-card::before {
-            content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 4px;
-            background: linear-gradient(90deg, #ff9500 0%, #ffcc00 100%); transform: scaleX(0); transform-origin:left; transition: transform .28s ease;
+            content: ''; 
+            position: absolute; 
+            top: 0; 
+            left: 0; 
+            width: 100%; 
+            height: 5px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary)); 
+            transform: scaleX(0); 
+            transform-origin:left; 
+            transition: transform .3s ease;
         }
-        .atelier-card:hover { transform: translateY(-6px); box-shadow: 0 18px 40px rgba(0,0,0,0.12); }
-        .atelier-card:hover::before { transform: scaleX(1); }
+        
+        .atelier-card:hover { 
+            transform: translateY(-10px); 
+            box-shadow: 0 20px 40px rgba(0,0,0,0.12); 
+        }
+        
+        .atelier-card:hover::before { 
+            transform: scaleX(1); 
+        }
 
         .atelier-icon {
-            width: 60px; height: 60px; background: linear-gradient(135deg, #ff9500 0%, #ffcc00 100%);
-            border-radius: 50%; display:flex; align-items:center; justify-content:center; color:white; font-size:1.25rem; font-weight:700; margin-bottom: 1rem;
+            width: 70px; 
+            height: 70px; 
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: 50%; 
+            display:flex; 
+            align-items:center; 
+            justify-content:center; 
+            color:white; 
+            font-size:1.5rem; 
+            font-weight:700; 
+            margin-bottom: 1.5rem; 
         }
-        .atelier-title { font-size: 1.15rem; color: #111; margin-bottom: 0.5rem; font-weight: 700; }
-        .atelier-description { color:#666; font-size: 0.95rem; margin-bottom: 1rem; line-height:1.4; }
-        .atelier-badge { display:inline-block; padding: 0.35rem 0.8rem; background:#fff3e0; color:#ff9500; border-radius:999px; font-weight:700; font-size:0.85rem; }
-
-        .badge-mongo { background: linear-gradient(90deg,#2eb48a,#229e6b); color: white; box-shadow: 0 6px 18px rgba(34,158,107,0.08); }
-
-        /* Footer */
-        footer { text-align:center; padding: 2rem; color: #666; margin-top: 2.5rem; }
-
-        /* Responsive */
-        @media (max-width: 768px) {
-            nav { flex-direction: column; gap: 0.6rem; }
-            .nav-links { gap: 0.6rem; flex-wrap: wrap; justify-content:center; }
-            .hero h1 { font-size: 1.6rem; }
-            .container { padding: 1rem; }
-            .ateliers-grid { grid-template-columns: 1fr; gap: 1rem; }
+        
+        .atelier-title { 
+            font-size: 1.3rem; 
+            color: var(--dark); 
+            margin-bottom: 1rem; 
+            font-weight: 700; 
         }
-        .ateliers-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; }
+        
+        .atelier-description { 
+            color: var(--gray); 
+            font-size: 1rem; 
+            margin-bottom: 1.5rem; 
+            line-height:1.5; 
+            flex-grow: 1;
+        }
+        
+        .atelier-badge { 
+            display:inline-block; 
+            padding: 0.4rem 1rem; 
+            background: rgba(16, 185, 129, 0.1); 
+            color: var(--primary); 
+            border-radius: 20px; 
+            font-weight:700; 
+            font-size:0.85rem; 
+            margin-bottom: 1.5rem;
+        }
 
-        .atelier-card {
-            background: white; border-radius: 12px; padding: 1.6rem; box-shadow: 0 6px 18px rgba(0,0,0,0.06);
-            transition: transform 0.25s ease, box-shadow 0.25s ease; text-decoration: none; color: inherit; position: relative; overflow: hidden;
+        .badge-mongo { 
+            background: rgba(0, 192, 139, 0.1); 
+            color: #00c08b; 
         }
-        .atelier-card::before {
-            content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 4px;
-            background: linear-gradient(90deg, #0284c7 0%, #06b6d4 100%); transform: scaleX(0); transform-origin:left; transition: transform .28s ease;
+        
+        .badge-react {
+            background: rgba(97, 218, 251, 0.1);
+            color: #21a1f1;
         }
-        .atelier-card:hover { transform: translateY(-6px); box-shadow: 0 18px 40px rgba(0,0,0,0.12); }
-        .atelier-card:hover::before { transform: scaleX(1); }
-
-        .atelier-icon {
-            width: 60px; height: 60px; background: linear-gradient(135deg, #0284c7 0%, #06b6d4 100%);
-            border-radius: 50%; display:flex; align-items:center; justify-content:center; color:white; font-size:1.1rem; font-weight:800; margin-bottom: 1rem;
-        }
-        .atelier-title { font-size: 1.15rem; color: #111; margin-bottom: 0.5rem; font-weight: 700; }
-        .atelier-description { color:#666; font-size: 0.95rem; margin-bottom: 1rem; line-height:1.4; }
-        .atelier-badge { display:inline-block; padding: 0.35rem 0.8rem; background:#e0f7fa; color:#0284c7; border-radius:999px; font-weight:700; font-size:0.85rem; }
 
         /* bouton "Voir détails" pour chaque carte */
         .details-btn{
-            display:inline-block;
-            margin-top:10px;
-            padding:0.5rem 0.9rem;
-            background:linear-gradient(90deg,#0284c7,#06b6d4);
+            display:inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-top: auto;
+            padding:0.7rem 1.2rem;
+            background:linear-gradient(90deg, var(--primary), var(--secondary));
             color:#fff;
             border-radius:10px;
-            font-weight:700;
+            font-weight:600;
             text-decoration:none;
-            font-size:0.92rem;
+            font-size:0.95rem;
+            transition: var(--transition);
+            width: fit-content;
         }
-        .details-btn:hover{ opacity:0.95; transform:translateY(-2px); }
+        
+        .details-btn:hover{ 
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(16, 185, 129, 0.3);
+        }
+
+        /* Footer */
+        footer { 
+            text-align:center; 
+            padding: 3rem 2rem; 
+            color: var(--gray); 
+            background: var(--dark);
+            margin-top: 5rem; 
+        }
+        
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+        
+        .footer-links a {
+            color: var(--light);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+        
+        .footer-links a:hover {
+            color: var(--primary-light);
+        }
+
+        /* Responsive */
+        @media (max-width: 992px) {
+            .hero-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+            
+            .hero-text h1 {
+                font-size: 2.8rem;
+            }
+            
+            .hero-text p {
+                max-width: 100%;
+            }
+            
+            .hero-btns {
+                justify-content: center;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            nav { 
+                flex-direction: column; 
+                gap: 1rem; 
+            }
+            
+            .nav-links { 
+                gap: 0.8rem; 
+                flex-wrap: wrap; 
+                justify-content:center; 
+            }
+            
+            .hero-text h1 { 
+                font-size: 2.2rem; 
+            }
+            
+            .container { 
+                padding: 3rem 1rem; 
+            }
+            
+            .ateliers-grid { 
+                grid-template-columns: 1fr; 
+                gap: 1.5rem; 
+            }
+            
+            .category-header {
+                flex-direction: column;
+                gap: 1rem;
+                text-align: center;
+            }
+            
+            .footer-links {
+                flex-direction: column;
+                gap: 1rem;
+            }
+        }
     </style>
 </head>
 <body>
     <header>
         <nav>
+            <div class="logo">ZCN</div>
             <div class="nav-links">
                 <a href="#home">Accueil</a>
-                <a href="#tsql">MySql Procedurale</a>
+                <a href="#tsql">MySQL</a>
                 <a href="#mongodb">MongoDB</a>
-                <a href="#react">JS</a>
+                <a href="#react">JavaScript</a>
+                <a href="#react-advanced">React</a>
             </div>
             <div class="user-profile">
                 <div class="user-icon">ZC</div>
@@ -148,17 +601,38 @@
         </nav>
     </header>
 
-    <main class="container">
-        <section class="hero" id="home">
-            <h1>Plateforme des Ateliers</h1>
-            <p>Bienvenue sur la plateforme des ateliers de bases de données. Explorez nos ateliers pratiques T‑SQL et MongoDB avec rapports et exemples.</p>
-        </section>
+    <section class="hero-section" id="home">
+        <div class="hero-content">
+            <div class="hero-text">
+                <h1>Développeur Web Full Stack </h1>
+                <div class="hero-btns">
+                    <a href="#tsql" class="btn btn-primary">
+                        <i class="fas fa-database"></i> Voir mes projets
+                    </a>
+    
+                </div>
+            </div>
+            <div class="hero-image">
+                <div class="profile-card">
+                    <div class="profile-img">ZC</div>
+                    <h2>Zaid Charif Nejjar</h2>
+                    <p>Développeur Full Stack</p>
+                   
+            </div>
+        </div>
+    </section>
 
-        <!-- T-SQL Section -->
+    <main class="container">
+        <div class="section-header">
+            <h2>Mes Ateliers & Projets</h2>
+            <p>Une collection de mes travaux pratiques en développement et gestion de bases de données</p>
+        </div>
+
+        <!-- MySQL Section -->
         <section class="category-section" id="tsql">
             <div class="category-header">
                 <div>
-                    <h2 class="category-title">Ateliers T-SQL</h2>
+                    <h2 class="category-title">Ateliers MySQL</h2>
                     <div class="category-sub">Guides, scripts et rapports</div>
                 </div>
                 <div class="category-sub">6 ateliers</div>
@@ -169,54 +643,72 @@
                     <div class="atelier-icon">1</div>
                     <h3 class="atelier-title">Atelier 1 - Création des tables</h3>
                     <p class="atelier-description">Création des tables, clés primaires & étrangères, et insertion de données de test.</p>
-                    <span class="atelier-badge">T-SQL</span>
+                    <span class="atelier-badge">MySQL</span>
+                    <div class="details-btn">
+                        <i class="fas fa-external-link-alt"></i> Voir le rapport
+                    </div>
                 </a>
 
                 <a href="Rapport.pdf" target="_blank" class="atelier-card">
                     <div class="atelier-icon">2</div>
                     <h3 class="atelier-title">Atelier 2 - Curseurs & procédures</h3>
                     <p class="atelier-description">Exemples d'utilisation des curseurs et des procédures stockées.</p>
-                    <span class="atelier-badge">T-SQL</span>
+                    <span class="atelier-badge">MySQL</span>
+                    <div class="details-btn">
+                        <i class="fas fa-external-link-alt"></i> Voir le rapport
+                    </div>
                 </a>
 
                 <a href="Rapport 2.pdf" target="_blank" class="atelier-card">
                     <div class="atelier-icon">3</div>
                     <h3 class="atelier-title">Atelier 3 - Triggers</h3>
                     <p class="atelier-description">Conception et tests de triggers pour automatiser des actions en base.</p>
-                    <span class="atelier-badge">T-SQL</span>
+                    <span class="atelier-badge">MySQL</span>
+                    <div class="details-btn">
+                        <i class="fas fa-external-link-alt"></i> Voir le rapport
+                    </div>
                 </a>
 
                 <a href="Rapport 4.pdf" target="_blank" class="atelier-card">
                     <div class="atelier-icon">4</div>
                     <h3 class="atelier-title">Atelier 4 - EFF : Gestion véhicules (DKM)</h3>
                     <p class="atelier-description">Étude de cas sur la gestion des véhicules de service, modèles et requêtes.</p>
-                    <span class="atelier-badge">T-SQL</span>
+                    <span class="atelier-badge">MySQL</span>
+                    <div class="details-btn">
+                        <i class="fas fa-external-link-alt"></i> Voir le rapport
+                    </div>
                 </a>
 
                 <a href="Rapport6.pdf" target="_blank" class="atelier-card">
                     <div class="atelier-icon">6</div>
                     <h3 class="atelier-title">Atelier 6 - Données notariales</h3>
                     <p class="atelier-description">Gestion des données notariales : fonctions, procédures et triggers.</p>
-                    <span class="atelier-badge">T-SQL</span>
+                    <span class="atelier-badge">MySQL</span>
+                    <div class="details-btn">
+                        <i class="fas fa-external-link-alt"></i> Voir le rapport
+                    </div>
                 </a>
 
                 <a href="Rapport7.pdf" target="_blank" class="atelier-card">
                     <div class="atelier-icon">7</div>
                     <h3 class="atelier-title">Atelier 7 - Événements & inscriptions</h3>
                     <p class="atelier-description">Système d'inscription et gestion d'événements, avec scripts d'exemple.</p>
-                    <span class="atelier-badge">T-SQL</span>
+                    <span class="atelier-badge">MySQL</span>
+                    <div class="details-btn">
+                        <i class="fas fa-external-link-alt"></i> Voir le rapport
+                    </div>
                 </a>
             </div>
         </section>
 
-        <!-- MongoDB Section (même design que T-SQL) -->
+        <!-- MongoDB Section -->
         <section class="category-section" id="mongodb">
             <div class="category-header">
                 <div>
                     <h2 class="category-title">Ateliers MongoDB</h2>
                     <div class="category-sub">NoSQL — Modélisation et requêtes</div>
                 </div>
-                <div class="category-sub">2 ateliers</div>
+                <div class="category-sub">7 ateliers</div>
             </div>
 
             <div class="ateliers-grid">
@@ -225,6 +717,9 @@
                     <h3 class="atelier-title">Atelier MongoDB 1 - Modélisation & insertion</h3>
                     <p class="atelier-description">Création de la base, modélisation documentaire et génération/import des données.</p>
                     <span class="atelier-badge badge-mongo">MongoDB</span>
+                    <div class="details-btn">
+                        <i class="fas fa-external-link-alt"></i> Voir le rapport
+                    </div>
                 </a>
 
                 <a href="MongoDB2 .pdf" target="_blank" class="atelier-card">
@@ -232,49 +727,69 @@
                     <h3 class="atelier-title">Atelier MongoDB 2 - Agrégations avancées</h3>
                     <p class="atelier-description">Pipelines d'agrégation, indexation et optimisation des requêtes avec exemples pratiques.</p>
                     <span class="atelier-badge badge-mongo">MongoDB</span>
+                    <div class="details-btn">
+                        <i class="fas fa-external-link-alt"></i> Voir le rapport
+                    </div>
                 </a>
+                
                 <a href="MongoDB 3 .pdf" target="_blank" class="atelier-card">
                     <div class="atelier-icon" style="background: linear-gradient(135deg,#00c08b,#007a5a);">3</div>
                     <h3 class="atelier-title">Atelier MongoDB 3 - Modélisation & insertion</h3>
                     <p class="atelier-description">Création de la base, modélisation documentaire et génération/import des données.</p>
                     <span class="atelier-badge badge-mongo">MongoDB</span>
+                    <div class="details-btn">
+                        <i class="fas fa-external-link-alt"></i> Voir le rapport
+                    </div>
                 </a>
+                
                 <a href="MongoDb 4 .pdf" target="_blank" class="atelier-card">
                     <div class="atelier-icon" style="background: linear-gradient(135deg,#00c08b,#007a5a);">4</div>
                     <h3 class="atelier-title">Atelier MongoDB 4 - Modélisation & insertion</h3>
                     <p class="atelier-description">Création de la base, modélisation documentaire et génération/import des données.</p>
                     <span class="atelier-badge badge-mongo">MongoDB</span>
+                    <div class="details-btn">
+                        <i class="fas fa-external-link-alt"></i> Voir le rapport
+                    </div>
                 </a>
+                
                 <a href="MongoDB 5 .pdf" target="_blank" class="atelier-card">
                     <div class="atelier-icon" style="background: linear-gradient(135deg,#00c08b,#007a5a);">5</div>
                     <h3 class="atelier-title">Atelier MongoDB 5 - Modélisation & insertion</h3>
                     <p class="atelier-description">Création de la base, modélisation documentaire et génération/import des données.</p>
                     <span class="atelier-badge badge-mongo">MongoDB</span>
+                    <div class="details-btn">
+                        <i class="fas fa-external-link-alt"></i> Voir le rapport
+                    </div>
                 </a>
+                
                 <a href="MongoDB 6.pdf" target="_blank" class="atelier-card">
                     <div class="atelier-icon" style="background: linear-gradient(135deg,#00c08b,#007a5a);">6</div>
                     <h3 class="atelier-title">Atelier MongoDB 6 - Modélisation & insertion</h3>
                     <p class="atelier-description">Création de la base, modélisation documentaire et génération/import des données.</p>
                     <span class="atelier-badge badge-mongo">MongoDB</span>
+                    <div class="details-btn">
+                        <i class="fas fa-external-link-alt"></i> Voir le rapport
+                    </div>
                 </a>
+                
                 <a href="Mongo7 db .pdf" target="_blank" class="atelier-card">
                     <div class="atelier-icon" style="background: linear-gradient(135deg,#00c08b,#007a5a);">7</div>
                     <h3 class="atelier-title">Atelier MongoDB 7 - Modélisation & insertion</h3>
                     <p class="atelier-description">Création de la base, modélisation documentaire et génération/import des données.</p>
                     <span class="atelier-badge badge-mongo">MongoDB</span>
+                    <div class="details-btn">
+                        <i class="fas fa-external-link-alt"></i> Voir le rapport
+                    </div>
                 </a>
-                
-                
-
             </div>
         </section>
 
-        <!-- React Section (nouvelle) -->
+        <!-- JavaScript Section -->
         <section class="category-section" id="react">
             <div class="category-header">
                 <div>
-                    <h2 class="category-title">Ateliers JS</h2>
-                    <div class="category-sub">Front‑end </div>
+                    <h2 class="category-title">Ateliers JavaScript</h2>
+                    <div class="category-sub">Front‑end et applications interactives</div>
                 </div>
                 <div class="category-sub">2 ateliers</div>
             </div>
@@ -284,24 +799,65 @@
                     <div class="atelier-icon">JS1</div>
                     <h3 class="atelier-title">Atelier 1 - Pierre‑Feuille‑Ciseaux</h3>
                     <p class="atelier-description">Jeu interactif : pierre, feuille, ciseaux.</p>
-                    <span class="atelier-badge">JS</span>
-                    <div><a class="details-btn" href="at1.html" target="_blank">Jouer</a></div>
+                    <span class="atelier-badge">JavaScript</span>
+                    <div>
+                        <a class="details-btn" href="at1.html" target="_blank">
+                            <i class="fas fa-gamepad"></i> Jouer
+                        </a>
+                    </div>
                 </div>
 
                 <div class="atelier-card">
                     <div class="atelier-icon">JS2</div>
                     <h3 class="atelier-title">Atelier 2 - Liste Qur'an</h3>
                     <p class="atelier-description">Mini‑site : lister les sourates depuis une API.</p>
-                    <span class="atelier-badge">JS</span>
-                    <div><a class="details-btn" href="at2.html" target="_blank">Voir détails</a></div>
+                    <span class="atelier-badge">JavaScript</span>
+                    <div>
+                        <a class="details-btn" href="at2.html" target="_blank">
+                            <i class="fas fa-external-link-alt"></i> Voir détails
+                        </a>
+                    </div>
                 </div>
-
             </div>
         </section>
 
-        <footer>
-            <p>&copy; 2025 Plateforme des Ateliers - Tous droits réservés</p>
-        </footer>
+        <!-- React Section -->
+        <section class="category-section" id="react-advanced">
+            <div class="category-header">
+                <div>
+                    <h2 class="category-title">Ateliers React (Avancé)</h2>
+                    <div class="category-sub">Composants avancés, performance et patterns</div>
+                </div>
+                <div class="category-sub">1 atelier</div>
+            </div>
+
+            <div class="ateliers-grid">
+                <a href="https://react-at1-69660a.gitlab.io/" target="_blank" class="atelier-card">
+                    <div class="atelier-icon" style="background: linear-gradient(135deg,#61dafb,#21a1f1);">R</div>
+                    <h3 class="atelier-title">Atelier - Hooks avancés & optimisation</h3>
+                    <p class="atelier-description">Techniques avancées avec hooks personnalisés, mémoïsation et optimisation des rendus.</p>
+                    <span class="atelier-badge badge-react">React</span>
+                    <div class="details-btn">
+                        <i class="fas fa-external-link-alt"></i> Voir le site
+                    </div>
+                </a>
+            </div>
+        </section>
     </main>
+
+    <footer id="contact">
+        <div class="footer-content">
+            <h3>Zaid Charif Nejjar</h3>
+            <p>Développeur Full Stack & Spécialiste Bases de Données</p>
+            <div class="footer-links">
+                <a href="#home">Accueil</a>
+                <a href="#tsql">MySQL</a>
+                <a href="#mongodb">MongoDB</a>
+                <a href="#react">JavaScript</a>
+                <a href="#react-advanced">React</a>
+            </div>
+            <p>&copy; 2025 Portfolio de Zaid Charif Nejjar - Tous droits réservés</p>
+        </div>
+    </footer>
 </body>
 </html>
