@@ -96,6 +96,40 @@
             .container { padding: 1rem; }
             .ateliers-grid { grid-template-columns: 1fr; gap: 1rem; }
         }
+        .ateliers-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; }
+
+        .atelier-card {
+            background: white; border-radius: 12px; padding: 1.6rem; box-shadow: 0 6px 18px rgba(0,0,0,0.06);
+            transition: transform 0.25s ease, box-shadow 0.25s ease; text-decoration: none; color: inherit; position: relative; overflow: hidden;
+        }
+        .atelier-card::before {
+            content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 4px;
+            background: linear-gradient(90deg, #0284c7 0%, #06b6d4 100%); transform: scaleX(0); transform-origin:left; transition: transform .28s ease;
+        }
+        .atelier-card:hover { transform: translateY(-6px); box-shadow: 0 18px 40px rgba(0,0,0,0.12); }
+        .atelier-card:hover::before { transform: scaleX(1); }
+
+        .atelier-icon {
+            width: 60px; height: 60px; background: linear-gradient(135deg, #0284c7 0%, #06b6d4 100%);
+            border-radius: 50%; display:flex; align-items:center; justify-content:center; color:white; font-size:1.1rem; font-weight:800; margin-bottom: 1rem;
+        }
+        .atelier-title { font-size: 1.15rem; color: #111; margin-bottom: 0.5rem; font-weight: 700; }
+        .atelier-description { color:#666; font-size: 0.95rem; margin-bottom: 1rem; line-height:1.4; }
+        .atelier-badge { display:inline-block; padding: 0.35rem 0.8rem; background:#e0f7fa; color:#0284c7; border-radius:999px; font-weight:700; font-size:0.85rem; }
+
+        /* bouton "Voir détails" pour chaque carte */
+        .details-btn{
+            display:inline-block;
+            margin-top:10px;
+            padding:0.5rem 0.9rem;
+            background:linear-gradient(90deg,#0284c7,#06b6d4);
+            color:#fff;
+            border-radius:10px;
+            font-weight:700;
+            text-decoration:none;
+            font-size:0.92rem;
+        }
+        .details-btn:hover{ opacity:0.95; transform:translateY(-2px); }
     </style>
 </head>
 <body>
@@ -103,8 +137,9 @@
         <nav>
             <div class="nav-links">
                 <a href="#home">Accueil</a>
-                <a href="#tsql">T-SQL</a>
+                <a href="#tsql">MySql Procedurale</a>
                 <a href="#mongodb">MongoDB</a>
+                <a href="#js">JS</a>
             </div>
             <div class="user-profile">
                 <div class="user-icon">ZC</div>
@@ -229,6 +264,37 @@
                     <span class="atelier-badge badge-mongo">MongoDB</span>
                 </a>
                 
+                
+
+            </div>
+        </section>
+
+        <!-- React Section (nouvelle) -->
+        <section class="category-section" id="react">
+            <div class="category-header">
+                <div>
+                    <h2 class="category-title">Ateliers JS</h2>
+                    <div class="category-sub">Front‑end </div>
+                </div>
+                <div class="category-sub">2 ateliers</div>
+            </div>
+
+            <div class="ateliers-grid">
+                <div class="atelier-card">
+                    <div class="atelier-icon">JS1</div>
+                    <h3 class="atelier-title">Atelier 1 - Pierre‑Feuille‑Ciseaux</h3>
+                    <p class="atelier-description">Jeu interactif : pierre, feuille, ciseaux.</p>
+                    <span class="atelier-badge">JS</span>
+                    <div><a class="details-btn" href="at1.html" target="_blank">Jouer</a></div>
+                </div>
+
+                <div class="atelier-card">
+                    <div class="atelier-icon">JS2</div>
+                    <h3 class="atelier-title">Atelier 2 - Liste Qur'an</h3>
+                    <p class="atelier-description">Mini‑site : lister les sourates depuis une API.</p>
+                    <span class="atelier-badge">JS</span>
+                    <div><a class="details-btn" href="at2.html" target="_blank">Voir détails</a></div>
+                </div>
 
             </div>
         </section>

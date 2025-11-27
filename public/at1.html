@@ -1,0 +1,1062 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pierre-Feuille-Ciseaux - Jeu Classique</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #2E8B57;
+      --primary-dark: #1F6B45;
+      --primary-light: #4CAF7A;
+      --secondary: #FF6B35;
+      --accent: #FFA726;
+      --background: #F8F9FA;
+      --surface: #FFFFFF;
+      --text-primary: #2C3E50;
+      --text-secondary: #546E7A;
+      --border: #E0E0E0;
+      --shadow: 0 10px 30px rgba(46, 139, 87, 0.15);
+      --shadow-hover: 0 15px 40px rgba(46, 139, 87, 0.25);
+      --radius: 16px;
+      --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background: linear-gradient(135deg, #F8F9FA 0%, #E8F5E9 100%);
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      min-height: 100vh;
+      padding: 2rem 1rem;
+      color: var(--text-primary);
+      line-height: 1.6;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    /* Header */
+    header {
+      text-align: center;
+      margin-bottom: 3rem;
+    }
+
+    .title-main {
+      font-size: clamp(2rem, 5vw, 3.5rem);
+      font-weight: 800;
+      background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 0.5rem;
+      text-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .subtitle {
+      color: var(--text-secondary);
+      font-size: 1.1rem;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    /* Game Area */
+    .game-area {
+      background: var(--surface);
+      border-radius: var(--radius);
+      padding: 2.5rem;
+      box-shadow: var(--shadow);
+      margin-bottom: 2rem;
+      border: 1px solid var(--border);
+    }
+
+    /* Choice Buttons */
+    .choices-container {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      flex-wrap: wrap;
+      margin: 2rem 0;
+    }
+
+    .choice-btn {
+      width: 140px;
+      height: 140px;
+      border-radius: 50%;
+      border: none;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: var(--transition);
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 12px 25px rgba(0, 0, 0, 0.15);
+    }
+
+    .choice-btn::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, rgba(255,255,255,0.2) 0%, rgba(255,255,255,0) 100%);
+      border-radius: 50%;
+    }
+
+    .choice-btn:hover {
+      transform: translateY(-8px) scale(1.05);
+      box-shadow: var(--shadow-hover);
+    }
+
+    .choice-btn:active {
+      transform: translateY(2px) scale(0.98);
+    }
+
+    .choice-btn.rock {
+      background: linear-gradient(135deg, #78909C 0%, #546E7A 100%);
+    }
+
+    .choice-btn.paper {
+      background: linear-gradient(135deg, #42A5F5 0%, #1E88E5 100%);
+    }
+
+    .choice-btn.scissors {
+      background: linear-gradient(135deg, #EF5350 0%, #E53935 100%);
+    }
+
+    .choice-icon {
+      width: 70px;
+      height: 70px;
+      margin-bottom: 10px;
+      filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.2));
+    }
+
+    .choice-label {
+      color: white;
+      font-weight: 700;
+      font-size: 1rem;
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    }
+
+    /* Score Cards */
+    .scores-container {
+      display: flex;
+      justify-content: center;
+      gap: 1.5rem;
+      margin: 2rem 0;
+      flex-wrap: wrap;
+    }
+
+    .score-card {
+      background: var(--surface);
+      border-radius: var(--radius);
+      padding: 1.5rem;
+      text-align: center;
+      box-shadow: var(--shadow);
+      border: 1px solid var(--border);
+      min-width: 150px;
+      transition: var(--transition);
+    }
+
+    .score-card:hover {
+      transform: translateY(-5px);
+    }
+
+    .score-card.player {
+      border-top: 4px solid var(--primary);
+    }
+
+    .score-card.tie {
+      border-top: 4px solid var(--accent);
+    }
+
+    .score-card.computer {
+      border-top: 4px solid var(--secondary);
+    }
+
+    .score-title {
+      font-size: 1rem;
+      color: var(--text-secondary);
+      margin-bottom: 0.5rem;
+      font-weight: 600;
+    }
+
+    .score-value {
+      font-size: 2.5rem;
+      font-weight: 800;
+      color: var(--text-primary);
+    }
+
+    /* Result Display */
+    .result-container {
+      background: linear-gradient(135deg, rgba(46, 139, 87, 0.05) 0%, rgba(255, 107, 53, 0.05) 100%);
+      border-radius: var(--radius);
+      padding: 1.5rem;
+      margin: 2rem 0;
+      text-align: center;
+      border: 1px solid rgba(46, 139, 87, 0.1);
+    }
+
+    .result-text {
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+    }
+
+    .result-text.win {
+      color: var(--primary);
+    }
+
+    .result-text.lose {
+      color: var(--secondary);
+    }
+
+    .result-text.tie {
+      color: var(--accent);
+    }
+
+    .choices-display {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 2rem;
+      margin-top: 1rem;
+    }
+
+    .choice-display {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .choice-display-icon {
+      width: 60px;
+      height: 60px;
+    }
+
+    .choice-display-label {
+      font-weight: 600;
+      color: var(--text-secondary);
+      font-size: 0.9rem;
+    }
+
+    .vs-text {
+      font-weight: 800;
+      color: var(--text-secondary);
+      font-size: 1.2rem;
+    }
+
+    /* Action Buttons */
+    .actions-container {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      margin-top: 2rem;
+      flex-wrap: wrap;
+    }
+
+    .action-btn {
+      padding: 0.8rem 1.5rem;
+      border: none;
+      border-radius: 50px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: var(--transition);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .action-btn.reset {
+      background: var(--secondary);
+      color: white;
+    }
+
+    .action-btn.auto {
+      background: transparent;
+      color: var(--primary);
+      border: 2px solid var(--primary);
+    }
+
+    .action-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: var(--shadow);
+    }
+
+    /* History Section */
+    .history-container {
+      background: var(--surface);
+      border-radius: var(--radius);
+      padding: 2rem;
+      box-shadow: var(--shadow);
+      border: 1px solid var(--border);
+    }
+
+    .history-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1.5rem;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .history-title {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      margin: 0;
+    }
+
+    .history-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      max-height: 300px;
+      overflow-y: auto;
+    }
+
+    .history-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem;
+      border-radius: 10px;
+      margin-bottom: 0.5rem;
+      transition: var(--transition);
+    }
+
+    .history-item:nth-child(odd) {
+      background: rgba(46, 139, 87, 0.03);
+    }
+
+    .history-item.win {
+      border-left: 4px solid var(--primary);
+    }
+
+    .history-item.lose {
+      border-left: 4px solid var(--secondary);
+    }
+
+    .history-item.tie {
+      border-left: 4px solid var(--accent);
+    }
+
+    .history-moves {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .history-move {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .history-move-icon {
+      width: 24px;
+      height: 24px;
+    }
+
+    .history-result {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .history-badge {
+      padding: 0.3rem 0.8rem;
+      border-radius: 50px;
+      font-size: 0.8rem;
+      font-weight: 700;
+    }
+
+    .badge-win {
+      background: rgba(46, 139, 87, 0.1);
+      color: var(--primary);
+    }
+
+    .badge-lose {
+      background: rgba(255, 107, 53, 0.1);
+      color: var(--secondary);
+    }
+
+    .badge-tie {
+      background: rgba(255, 167, 38, 0.1);
+      color: var(--accent);
+    }
+
+    .history-time {
+      color: var(--text-secondary);
+      font-size: 0.8rem;
+    }
+
+    /* Delete Button */
+    .delete-btn {
+      background: rgba(239, 68, 68, 0.1);
+      border: none;
+      border-radius: 6px;
+      width: 32px;
+      height: 32px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: var(--transition);
+      color: #EF4444;
+    }
+
+    .delete-btn:hover {
+      background: rgba(239, 68, 68, 0.2);
+      transform: scale(1.1);
+    }
+
+    .delete-btn svg {
+      width: 16px;
+      height: 16px;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .game-area {
+        padding: 1.5rem;
+      }
+      
+      .choice-btn {
+        width: 120px;
+        height: 120px;
+      }
+      
+      .choice-icon {
+        width: 60px;
+        height: 60px;
+      }
+      
+      .scores-container {
+        gap: 1rem;
+      }
+      
+      .score-card {
+        min-width: 120px;
+        padding: 1rem;
+      }
+      
+      .choices-display {
+        gap: 1rem;
+      }
+      
+      .history-item {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.5rem;
+      }
+      
+      .history-result {
+        width: 100%;
+        justify-content: space-between;
+      }
+    }
+
+    @media (max-width: 576px) {
+      .choice-btn {
+        width: 100px;
+        height: 100px;
+      }
+      
+      .choice-icon {
+        width: 50px;
+        height: 50px;
+      }
+      
+      .choices-container {
+        gap: 1rem;
+      }
+      
+      .history-header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+    }
+
+    /* Animation for choice selection */
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.1); }
+      100% { transform: scale(1); }
+    }
+
+    .choice-btn.active {
+      animation: pulse 0.5s ease;
+    }
+
+    /* Custom scrollbar */
+    .history-list::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    .history-list::-webkit-scrollbar-track {
+      background: #f1f1f1;
+      border-radius: 10px;
+    }
+
+    .history-list::-webkit-scrollbar-thumb {
+      background: var(--primary-light);
+      border-radius: 10px;
+    }
+
+    .history-list::-webkit-scrollbar-thumb:hover {
+      background: var(--primary);
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1 class="title-main">Pierre-Feuille-Ciseaux</h1>
+      <p class="subtitle">Le jeu classique réinventé avec un design moderne et élégant</p>
+    </header>
+
+    <main class="game-area">
+      <div class="choices-container">
+        <button class="choice-btn rock" id="rock" title="Pierre" aria-label="Pierre">
+          <svg class="choice-icon" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+            <!-- Pierre réaliste avec texture -->
+            <defs>
+              <filter id="rockTexture" x="0" y="0" width="100" height="100">
+                <feTurbulence type="fractalNoise" baseFrequency="0.05" numOctaves="3" result="noise"/>
+                <feDiffuseLighting in="noise" lighting-color="#ffffff" surfaceScale="2" result="diffuse">
+                  <feDistantLight azimuth="45" elevation="60"/>
+                </feDiffuseLighting>
+                <feComposite in="diffuse" in2="SourceGraphic" operator="in"/>
+              </filter>
+              <linearGradient id="rockGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#8D6E63"/>
+                <stop offset="50%" stop-color="#6D4C41"/>
+                <stop offset="100%" stop-color="#5D4037"/>
+              </linearGradient>
+            </defs>
+            <path d="M30,20 Q50,10 70,20 Q85,35 80,55 Q75,75 55,85 Q35,85 20,70 Q15,50 30,20Z" fill="url(#rockGradient)" filter="url(#rockTexture)"/>
+            <path d="M40,30 Q45,25 50,30 Q55,35 50,40 Q45,45 40,40 Q35,35 40,30Z" fill="#5D4037" opacity="0.3"/>
+            <path d="M60,40 Q65,35 70,40 Q75,45 70,50 Q65,55 60,50 Q55,45 60,40Z" fill="#5D4037" opacity="0.3"/>
+            <path d="M35,55 Q40,50 45,55 Q50,60 45,65 Q40,70 35,65 Q30,60 35,55Z" fill="#5D4037" opacity="0.3"/>
+          </svg>
+          <span class="choice-label">Pierre</span>
+        </button>
+
+        <button class="choice-btn paper" id="paper" title="Feuille" aria-label="Feuille">
+          <svg class="choice-icon" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+            <!-- Feuille de papier réaliste avec coins repliés -->
+            <defs>
+              <linearGradient id="paperGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#FAFAFA"/>
+                <stop offset="100%" stop-color="#E0E0E0"/>
+              </linearGradient>
+            </defs>
+            <rect x="15" y="15" width="70" height="70" rx="3" fill="url(#paperGradient)" stroke="#BDBDBD" stroke-width="1"/>
+            <!-- Coin replié -->
+            <path d="M15,15 L30,15 L15,30Z" fill="#E0E0E0" stroke="#BDBDBD" stroke-width="1"/>
+            <!-- Lignes de texte -->
+            <line x1="25" y1="35" x2="75" y2="35" stroke="#90CAF9" stroke-width="2" stroke-linecap="round"/>
+            <line x1="25" y1="42" x2="70" y2="42" stroke="#90CAF9" stroke-width="2" stroke-linecap="round"/>
+            <line x1="25" y1="49" x2="65" y2="49" stroke="#90CAF9" stroke-width="2" stroke-linecap="round"/>
+            <line x1="25" y1="56" x2="60" y2="56" stroke="#90CAF9" stroke-width="2" stroke-linecap="round"/>
+            <line x1="25" y1="63" x2="75" y2="63" stroke="#90CAF9" stroke-width="2" stroke-linecap="round"/>
+            <line x1="25" y1="70" x2="55" y2="70" stroke="#90CAF9" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+          <span class="choice-label">Feuille</span>
+        </button>
+
+        <button class="choice-btn scissors" id="scissors" title="Ciseaux" aria-label="Ciseaux">
+          <svg class="choice-icon" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+            <!-- Ciseaux réalistes avec détails métalliques -->
+            <defs>
+              <linearGradient id="scissorsGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#E0E0E0"/>
+                <stop offset="50%" stop-color="#BDBDBD"/>
+                <stop offset="100%" stop-color="#9E9E9E"/>
+              </linearGradient>
+              <linearGradient id="scissorsHandle" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#757575"/>
+                <stop offset="100%" stop-color="#424242"/>
+              </linearGradient>
+            </defs>
+            <!-- Lame gauche -->
+            <path d="M30,30 Q40,20 50,30 L45,65 Q40,70 30,65 Z" fill="url(#scissorsGradient)"/>
+            <!-- Lame droite -->
+            <path d="M70,30 Q60,20 50,30 L55,65 Q60,70 70,65 Z" fill="url(#scissorsGradient)"/>
+            <!-- Poignées -->
+            <ellipse cx="35" cy="75" rx="8" ry="12" fill="url(#scissorsHandle)"/>
+            <ellipse cx="65" cy="75" rx="8" ry="12" fill="url(#scissorsHandle)"/>
+            <!-- Rivet central -->
+            <circle cx="50" cy="50" r="5" fill="#616161"/>
+            <circle cx="50" cy="50" r="2" fill="#E0E0E0"/>
+            <!-- Détails des lames -->
+            <path d="M35,35 L45,50" stroke="#757575" stroke-width="1" stroke-linecap="round"/>
+            <path d="M65,35 L55,50" stroke="#757575" stroke-width="1" stroke-linecap="round"/>
+          </svg>
+          <span class="choice-label">Ciseaux</span>
+        </button>
+      </div>
+
+      <div class="scores-container">
+        <div class="score-card player">
+          <div class="score-title">Joueur</div>
+          <div class="score-value" id="player-score">0</div>
+        </div>
+        
+        <div class="score-card tie">
+          <div class="score-title">Égalités</div>
+          <div class="score-value" id="tie-score">0</div>
+        </div>
+        
+        <div class="score-card computer">
+          <div class="score-title">Ordinateur</div>
+          <div class="score-value" id="computer-score">0</div>
+        </div>
+      </div>
+
+      <div class="result-container">
+        <div class="result-text" id="result-text">Choisissez votre coup pour commencer</div>
+        <div class="choices-display">
+          <div class="choice-display">
+            <svg class="choice-display-icon" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="50" cy="50" r="40" fill="#E0E0E0"/>
+              <text x="50" y="58" text-anchor="middle" fill="#9E9E9E" font-size="14">?</text>
+            </svg>
+            <div class="choice-display-label" id="player-choice-label">Vous</div>
+          </div>
+          
+          <div class="vs-text">VS</div>
+          
+          <div class="choice-display">
+            <svg class="choice-display-icon" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="50" cy="50" r="40" fill="#E0E0E0"/>
+              <text x="50" y="58" text-anchor="middle" fill="#9E9E9E" font-size="14">?</text>
+            </svg>
+            <div class="choice-display-label" id="computer-choice-label">Ordinateur</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="actions-container">
+        <button class="action-btn reset" id="reset">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 6V9L16 5L12 1V4C7.58 4 4 7.58 4 12C4 13.57 4.46 15.03 5.3 16.26L6.8 14.76C6.28 13.83 6 12.73 6 11.5C6 8.46 8.46 6 11.5 6H12Z" fill="white"/>
+            <path d="M18.7 7.74L17.2 9.24C17.72 10.17 18 11.27 18 12.5C18 15.54 15.54 18 12.5 18H12V15L8 19L12 23V20C16.42 20 20 16.42 20 12C20 10.43 19.54 8.97 18.7 7.74Z" fill="white"/>
+          </svg>
+          Réinitialiser
+        </button>
+        
+        <button class="action-btn auto" id="autoPlay">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M10 16.5L16 12L10 7.5V16.5ZM12 2C6.48 2 2 6.48 2 12C2 17.52 6.48 22 12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2ZM12 20C7.59 20 4 16.41 4 12C4 7.59 7.59 4 12 4C16.41 4 20 7.59 20 12C20 16.41 16.41 20 12 20Z" fill="#2E8B57"/>
+          </svg>
+          Mode Auto (OFF)
+        </button>
+      </div>
+    </main>
+
+    <section class="history-container">
+      <div class="history-header">
+        <h2 class="history-title">Historique des parties</h2>
+        <button class="action-btn reset" id="clear-history">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M6 19C6 20.1 6.9 21 8 21H16C17.1 21 18 20.1 18 19V7H6V19ZM19 4H15.5L14.5 3H9.5L8.5 4H5V6H19V4Z" fill="white"/>
+          </svg>
+          Vider l'historique
+        </button>
+      </div>
+      
+      <ul class="history-list" id="game-history">
+        <!-- Les entrées d'historique seront ajoutées ici dynamiquement -->
+      </ul>
+    </section>
+  </div>
+
+  <script>
+    // Game state
+    const gameState = {
+      playerScore: 0,
+      computerScore: 0,
+      tieScore: 0,
+      history: [],
+      isAutoPlay: false,
+      autoPlayInterval: null
+    };
+
+    // DOM Elements
+    const playerScoreEl = document.getElementById('player-score');
+    const computerScoreEl = document.getElementById('computer-score');
+    const tieScoreEl = document.getElementById('tie-score');
+    const resultTextEl = document.getElementById('result-text');
+    const playerChoiceLabel = document.getElementById('player-choice-label');
+    const computerChoiceLabel = document.getElementById('computer-choice-label');
+    const resetBtn = document.getElementById('reset');
+    const autoPlayBtn = document.getElementById('autoPlay');
+    const clearHistoryBtn = document.getElementById('clear-history');
+    const gameHistoryEl = document.getElementById('game-history');
+    const choiceButtons = document.querySelectorAll('.choice-btn');
+
+    // Choices
+    const choices = [
+      { id: 'rock', name: 'Pierre', beats: 'scissors' },
+      { id: 'paper', name: 'Feuille', beats: 'rock' },
+      { id: 'scissors', name: 'Ciseaux', beats: 'paper' }
+    ];
+
+    // Initialize game
+    function init() {
+      loadFromStorage();
+      updateUI();
+      setupEventListeners();
+    }
+
+    // Load game state from localStorage
+    function loadFromStorage() {
+      const savedState = localStorage.getItem('rps-game-state');
+      if (savedState) {
+        const parsed = JSON.parse(savedState);
+        gameState.playerScore = parsed.playerScore || 0;
+        gameState.computerScore = parsed.computerScore || 0;
+        gameState.tieScore = parsed.tieScore || 0;
+        gameState.history = parsed.history || [];
+      }
+    }
+
+    // Save game state to localStorage
+    function saveToStorage() {
+      localStorage.setItem('rps-game-state', JSON.stringify(gameState));
+    }
+
+    // Set up event listeners
+    function setupEventListeners() {
+      // Choice buttons
+      choiceButtons.forEach(button => {
+        button.addEventListener('click', () => handlePlayerChoice(button.id));
+      });
+
+      // Reset button
+      resetBtn.addEventListener('click', handleReset);
+
+      // Auto play button
+      autoPlayBtn.addEventListener('click', toggleAutoPlay);
+
+      // Clear history button
+      clearHistoryBtn.addEventListener('click', clearHistory);
+
+      // Keyboard shortcuts
+      document.addEventListener('keydown', (e) => {
+        if (e.key === '1') document.getElementById('rock').click();
+        if (e.key === '2') document.getElementById('paper').click();
+        if (e.key === '3') document.getElementById('scissors').click();
+        if (e.key.toLowerCase() === 'r') resetBtn.click();
+        if (e.key.toLowerCase() === 'a') autoPlayBtn.click();
+      });
+    }
+
+    // Handle player choice
+    function handlePlayerChoice(choiceId) {
+      const playerChoice = choices.find(c => c.id === choiceId);
+      const computerChoice = getComputerChoice();
+      
+      // Visual feedback
+      const button = document.getElementById(choiceId);
+      button.classList.add('active');
+      setTimeout(() => button.classList.remove('active'), 300);
+      
+      // Determine winner
+      const winner = determineWinner(playerChoice, computerChoice);
+      
+      // Update scores
+      updateScores(winner);
+      
+      // Update UI
+      updateResultDisplay(playerChoice, computerChoice, winner);
+      updateUI();
+      
+      // Add to history
+      addToHistory(playerChoice, computerChoice, winner);
+      
+      // Save state
+      saveToStorage();
+    }
+
+    // Get computer choice
+    function getComputerChoice() {
+      const randomIndex = Math.floor(Math.random() * choices.length);
+      return choices[randomIndex];
+    }
+
+    // Determine winner
+    function determineWinner(player, computer) {
+      if (player.id === computer.id) return 'tie';
+      if (player.beats === computer.id) return 'player';
+      return 'computer';
+    }
+
+    // Update scores
+    function updateScores(winner) {
+      if (winner === 'player') gameState.playerScore++;
+      else if (winner === 'computer') gameState.computerScore++;
+      else gameState.tieScore++;
+    }
+
+    // Update result display
+    function updateResultDisplay(playerChoice, computerChoice, winner) {
+      // Update choice labels
+      playerChoiceLabel.textContent = playerChoice.name;
+      computerChoiceLabel.textContent = computerChoice.name;
+      
+      // Update choice icons
+      updateChoiceIcons(playerChoice, computerChoice);
+      
+      // Update result text
+      let resultMessage = '';
+      if (winner === 'player') {
+        resultMessage = `Vous avez gagné ! ${playerChoice.name} bat ${computerChoice.name}`;
+        resultTextEl.className = 'result-text win';
+      } else if (winner === 'computer') {
+        resultMessage = `Vous avez perdu... ${computerChoice.name} bat ${playerChoice.name}`;
+        resultTextEl.className = 'result-text lose';
+      } else {
+        resultMessage = `Égalité ! Vous avez tous les deux choisi ${playerChoice.name}`;
+        resultTextEl.className = 'result-text tie';
+      }
+      
+      resultTextEl.textContent = resultMessage;
+    }
+
+    // Update choice icons in result display
+    function updateChoiceIcons(playerChoice, computerChoice) {
+      const playerIcon = document.querySelector('.choice-display:first-child .choice-display-icon');
+      const computerIcon = document.querySelector('.choice-display:last-child .choice-display-icon');
+      
+      playerIcon.innerHTML = getIconSVG(playerChoice.id);
+      computerIcon.innerHTML = getIconSVG(computerChoice.id);
+    }
+
+    // Get SVG for choice
+    function getIconSVG(choiceId) {
+      if (choiceId === 'rock') {
+        return `
+          <defs>
+            <linearGradient id="rockGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#8D6E63"/>
+              <stop offset="50%" stop-color="#6D4C41"/>
+              <stop offset="100%" stop-color="#5D4037"/>
+            </linearGradient>
+          </defs>
+          <path d="M30,20 Q50,10 70,20 Q85,35 80,55 Q75,75 55,85 Q35,85 20,70 Q15,50 30,20Z" fill="url(#rockGradient)"/>
+          <path d="M40,30 Q45,25 50,30 Q55,35 50,40 Q45,45 40,40 Q35,35 40,30Z" fill="#5D4037" opacity="0.3"/>
+          <path d="M60,40 Q65,35 70,40 Q75,45 70,50 Q65,55 60,50 Q55,45 60,40Z" fill="#5D4037" opacity="0.3"/>
+          <path d="M35,55 Q40,50 45,55 Q50,60 45,65 Q40,70 35,65 Q30,60 35,55Z" fill="#5D4037" opacity="0.3"/>
+        `;
+      } else if (choiceId === 'paper') {
+        return `
+          <defs>
+            <linearGradient id="paperGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#FAFAFA"/>
+              <stop offset="100%" stop-color="#E0E0E0"/>
+            </linearGradient>
+          </defs>
+          <rect x="15" y="15" width="70" height="70" rx="3" fill="url(#paperGradient)" stroke="#BDBDBD" stroke-width="1"/>
+          <path d="M15,15 L30,15 L15,30Z" fill="#E0E0E0" stroke="#BDBDBD" stroke-width="1"/>
+          <line x1="25" y1="35" x2="75" y2="35" stroke="#90CAF9" stroke-width="2" stroke-linecap="round"/>
+          <line x1="25" y1="42" x2="70" y2="42" stroke="#90CAF9" stroke-width="2" stroke-linecap="round"/>
+          <line x1="25" y1="49" x2="65" y2="49" stroke="#90CAF9" stroke-width="2" stroke-linecap="round"/>
+          <line x1="25" y1="56" x2="60" y2="56" stroke="#90CAF9" stroke-width="2" stroke-linecap="round"/>
+          <line x1="25" y1="63" x2="75" y2="63" stroke="#90CAF9" stroke-width="2" stroke-linecap="round"/>
+          <line x1="25" y1="70" x2="55" y2="70" stroke="#90CAF9" stroke-width="2" stroke-linecap="round"/>
+        `;
+      } else { // scissors
+        return `
+          <defs>
+            <linearGradient id="scissorsGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#E0E0E0"/>
+              <stop offset="50%" stop-color="#BDBDBD"/>
+              <stop offset="100%" stop-color="#9E9E9E"/>
+            </linearGradient>
+            <linearGradient id="scissorsHandle" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#757575"/>
+              <stop offset="100%" stop-color="#424242"/>
+            </linearGradient>
+          </defs>
+          <path d="M30,30 Q40,20 50,30 L45,65 Q40,70 30,65 Z" fill="url(#scissorsGradient)"/>
+          <path d="M70,30 Q60,20 50,30 L55,65 Q60,70 70,65 Z" fill="url(#scissorsGradient)"/>
+          <ellipse cx="35" cy="75" rx="8" ry="12" fill="url(#scissorsHandle)"/>
+          <ellipse cx="65" cy="75" rx="8" ry="12" fill="url(#scissorsHandle)"/>
+          <circle cx="50" cy="50" r="5" fill="#616161"/>
+          <circle cx="50" cy="50" r="2" fill="#E0E0E0"/>
+          <path d="M35,35 L45,50" stroke="#757575" stroke-width="1" stroke-linecap="round"/>
+          <path d="M65,35 L55,50" stroke="#757575" stroke-width="1" stroke-linecap="round"/>
+        `;
+      }
+    }
+
+    // Add game to history
+    function addToHistory(playerChoice, computerChoice, winner) {
+      const historyEntry = {
+        id: Date.now(), // Unique ID for deletion
+        timestamp: new Date().toLocaleTimeString(),
+        playerChoice: playerChoice.name,
+        computerChoice: computerChoice.name,
+        result: winner
+      };
+      
+      gameState.history.unshift(historyEntry);
+      
+      // Keep only last 10 entries
+      if (gameState.history.length > 10) {
+        gameState.history.pop();
+      }
+      
+      updateHistoryDisplay();
+    }
+
+    // Update history display
+    function updateHistoryDisplay() {
+      gameHistoryEl.innerHTML = '';
+      
+      if (gameState.history.length === 0) {
+        const emptyMessage = document.createElement('li');
+        emptyMessage.className = 'history-item';
+        emptyMessage.textContent = 'Aucune partie enregistrée';
+        emptyMessage.style.justifyContent = 'center';
+        emptyMessage.style.color = '#9E9E9E';
+        gameHistoryEl.appendChild(emptyMessage);
+        return;
+      }
+      
+      gameState.history.forEach(entry => {
+        const historyItem = document.createElement('li');
+        historyItem.className = `history-item ${entry.result}`;
+        
+        historyItem.innerHTML = `
+          <div class="history-moves">
+            <div class="history-move">
+              <span>${entry.playerChoice}</span>
+            </div>
+            <span>vs</span>
+            <div class="history-move">
+              <span>${entry.computerChoice}</span>
+            </div>
+          </div>
+          <div class="history-result">
+            <span class="history-time">${entry.timestamp}</span>
+            <span class="history-badge badge-${entry.result}">
+              ${entry.result === 'player' ? 'Victoire' : entry.result === 'computer' ? 'Défaite' : 'Égalité'}
+            </span>
+            <button class="delete-btn" data-id="${entry.id}" title="Supprimer cette partie">
+              <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M6 19C6 20.1 6.9 21 8 21H16C17.1 21 18 20.1 18 19V7H6V19ZM19 4H15.5L14.5 3H9.5L8.5 4H5V6H19V4Z" fill="currentColor"/>
+              </svg>
+            </button>
+          </div>
+        `;
+        
+        // Add event listener to delete button
+        const deleteBtn = historyItem.querySelector('.delete-btn');
+        deleteBtn.addEventListener('click', () => deleteHistoryEntry(entry.id));
+        
+        gameHistoryEl.appendChild(historyItem);
+      });
+    }
+
+    // Delete specific history entry
+    function deleteHistoryEntry(id) {
+      gameState.history = gameState.history.filter(entry => entry.id !== id);
+      updateHistoryDisplay();
+      saveToStorage();
+    }
+
+    // Handle reset
+    function handleReset() {
+      gameState.playerScore = 0;
+      gameState.computerScore = 0;
+      gameState.tieScore = 0;
+      
+      updateUI();
+      saveToStorage();
+      
+      // Reset result display
+      resultTextEl.textContent = 'Scores réinitialisés. Choisissez votre coup !';
+      resultTextEl.className = 'result-text';
+      playerChoiceLabel.textContent = 'Vous';
+      computerChoiceLabel.textContent = 'Ordinateur';
+      
+      // Reset choice icons
+      const playerIcon = document.querySelector('.choice-display:first-child .choice-display-icon');
+      const computerIcon = document.querySelector('.choice-display:last-child .choice-display-icon');
+      
+      playerIcon.innerHTML = `
+        <circle cx="50" cy="50" r="40" fill="#E0E0E0"/>
+        <text x="50" y="58" text-anchor="middle" fill="#9E9E9E" font-size="14">?</text>
+      `;
+      
+      computerIcon.innerHTML = `
+        <circle cx="50" cy="50" r="40" fill="#E0E0E0"/>
+        <text x="50" y="58" text-anchor="middle" fill="#9E9E9E" font-size="14">?</text>
+      `;
+    }
+
+    // Toggle auto play
+    function toggleAutoPlay() {
+      gameState.isAutoPlay = !gameState.isAutoPlay;
+      
+      if (gameState.isAutoPlay) {
+        autoPlayBtn.innerHTML = `
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="6" y="6" width="4" height="12" fill="#2E8B57"/>
+            <rect x="14" y="6" width="4" height="12" fill="#2E8B57"/>
+          </svg>
+          Mode Auto (ON)
+        `;
+        
+        gameState.autoPlayInterval = setInterval(() => {
+          const randomIndex = Math.floor(Math.random() * choices.length);
+          document.getElementById(choices[randomIndex].id).click();
+        }, 1000);
+      } else {
+        autoPlayBtn.innerHTML = `
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="">
+            <path d="M10 16.5L16 12L10 7.5V16.5ZM12 2C6.48 2 2 6.48 2 12C2 17.52 6.48 22 12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2ZM12 20C7.59 20 4 16.41 4 12C4 7.59 7.59 4 12 4C16.41 4 20 7.59 20 12C20 16.41 16.41 20 12 20Z" fill="#2E8B57"/>
+          </svg>
+          Mode Auto (OFF)
+        `;
+        
+        clearInterval(gameState.autoPlayInterval);
+      }
+    }
+
+    // Clear history
+    function clearHistory() {
+      gameState.history = [];
+      updateHistoryDisplay();
+      saveToStorage();
+    }
+
+    // Update UI
+    function updateUI() {
+      playerScoreEl.textContent = gameState.playerScore;
+      computerScoreEl.textContent = gameState.computerScore;
+      tieScoreEl.textContent = gameState.tieScore;
+      updateHistoryDisplay();
+    }
+
+    // Initialize the game
+    init();
+  </script>
+</body>
+</html>
