@@ -3,1105 +3,146 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portfolio de Zaid Charif Nejjar</title>
+    <title>Accueil | Zaid Charif Nejjar</title>
+    <meta name="description" content="Portfolio de Zaid Charif Nejjar - Developpeur Full Stack">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        /* Variables CSS */
-        :root {
-            --primary: #10b981;
-            --primary-light: #34d399;
-            --primary-dark: #059669;
-            --secondary: #047857;
-            --secondary-light: #065f46;
-            --dark: #1e1e2c;
-            --light: #f8fafc;
-            --gray: #6b7280;
-            --gray-light: #e5e7eb;
-            --success: #10b981;
-            --card-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
-            --transition: all 0.3s ease;
-        }
-
-        /* Reset et styles de base */
-        * { 
-            margin: 0; 
-            padding: 0; 
-            box-sizing: border-box; 
-        }
-        
-        html {
-            scroll-behavior: smooth;
-        }
-        
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            line-height: 1.6;
-            color: var(--dark);
-            background-color: var(--light);
-            overflow-x: hidden;
-        }
-
-        /* Header fixe */
-        header {
-            position: fixed; 
-            top: 0; 
-            left: 0; 
-            width: 100%;
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            padding: 1.2rem 2rem; 
-            box-shadow: 0 4px 12px rgba(0,0,0,0.05); 
-            z-index: 1000;
-            transition: var(--transition);
-        }
-
-        nav { 
-            max-width: 1200px; 
-            margin: 0 auto; 
-            display: flex; 
-            justify-content: space-between; 
-            align-items: center; 
-            gap: 3rem; 
-        }
-        
-        .logo {
-            font-weight: 800;
-            font-size: 1.5rem;
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-        
-        .nav-links { 
-            display: flex; 
-            gap: 1.5rem; 
-            align-items:center; 
-        }
-        
-        .nav-links a {
-            color: var(--dark); 
-            text-decoration: none; 
-            font-size: 1rem; 
-            font-weight: 600;
-            padding: 0.5rem 1rem; 
-            border-radius: 20px; 
-            transition: var(--transition);
-            position: relative;
-        }
-        
-        .nav-links a:hover { 
-            color: var(--primary); 
-        }
-        
-        .nav-links a::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 50%;
-            width: 0;
-            height: 2px;
-            background: var(--primary);
-            transition: var(--transition);
-            transform: translateX(-50%);
-        }
-        
-        .nav-links a:hover::after {
-            width: 80%;
-        }
-
-        .user-profile {
-            display: flex; 
-            align-items: center; 
-            gap: 0.8rem; 
-            color: var(--dark); 
-            font-weight: 600;
-            padding: 0.5rem 1.2rem; 
-            background: rgba(16, 185, 129, 0.08); 
-            border-radius: 25px;
-            transition: var(--transition);
-        }
-        
-        .user-profile:hover {
-            background: rgba(16, 185, 129, 0.12);
-        }
-        
-        .user-icon {
-            width: 35px; 
-            height: 35px; 
-            background: linear-gradient(135deg, var(--primary), var(--secondary)); 
-            border-radius: 50%;
-            display: flex; 
-            align-items: center; 
-            justify-content: center; 
-            color: white; 
-            font-weight: bold;
-        }
-
-        /* Hero Section */
-        .hero-section {
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            padding: 2rem;
-            background: linear-gradient(135deg, #f0fdf9 0%, #e6f7f2 100%);
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .hero-section::before {
-            content: '';
-            position: absolute;
-            width: 300px;
-            height: 300px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, rgba(16, 185, 129, 0.1) 0%, rgba(4, 120, 87, 0.1) 100%);
-            top: -100px;
-            right: -100px;
-        }
-        
-        .hero-section::after {
-            content: '';
-            position: absolute;
-            width: 200px;
-            height: 200px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, rgba(52, 211, 153, 0.1) 0%, rgba(16, 185, 129, 0.1) 100%);
-            bottom: -50px;
-            left: -50px;
-        }
-        
-        .hero-content {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 3rem;
-            align-items: center;
-            position: relative;
-            z-index: 1;
-        }
-        
-        .hero-text {
-            text-align: center;
-        }
-        
-        .hero-text h1 {
-            font-size: 3.5rem;
-            font-weight: 800;
-            line-height: 1.1;
-            margin-bottom: 1.5rem;
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-        
-        .hero-text p {
-            font-size: 1.2rem;
-            color: var(--gray);
-            margin-bottom: 2rem;
-            max-width: 90%;
-            margin-left: auto;
-            margin-right: auto;
-        }
-        
-        .hero-btns {
-            display: flex;
-            gap: 1rem;
-            justify-content: center;
-        }
-        
-        .btn {
-            padding: 0.8rem 1.8rem;
-            border-radius: 30px;
-            font-weight: 600;
-            text-decoration: none;
-            transition: var(--transition);
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-        
-        .btn-primary {
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            color: white;
-            box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3);
-        }
-        
-        .btn-primary:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 6px 20px rgba(16, 185, 129, 0.4);
-        }
-        
-        .btn-outline {
-            border: 2px solid var(--primary);
-            color: var(--primary);
-        }
-        
-        .btn-outline:hover {
-            background: var(--primary);
-            color: white;
-            transform: translateY(-3px);
-        }
-        
-        .hero-image {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-        
-        .profile-card {
-            background: white;
-            border-radius: 20px;
-            padding: 2rem;
-            box-shadow: var(--card-shadow);
-            text-align: center;
-            max-width: 350px;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .profile-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 8px;
-            background: linear-gradient(90deg, var(--primary), var(--secondary));
-        }
-        
-        .profile-img {
-            width: 150px;
-            height: 150px;
-            border-radius: 50%;
-            margin: 0 auto 1.5rem;
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 3rem;
-            font-weight: bold;
-        }
-        
-        .profile-card h2 {
-            font-size: 1.5rem;
-            margin-bottom: 0.5rem;
-            color: var(--dark);
-        }
-        
-        .profile-card p {
-            color: var(--gray);
-            margin-bottom: 1.5rem;
-        }
-        
-        .social-links {
-            display: flex;
-            justify-content: center;
-            gap: 1rem;
-        }
-        
-        .social-links a {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            background: rgba(16, 185, 129, 0.1);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--primary);
-            transition: var(--transition);
-        }
-        
-        .social-links a:hover {
-            background: var(--primary);
-            color: white;
-            transform: translateY(-3px);
-        }
-
-        /* Container principal */
-        .container { 
-            max-width: 1200px; 
-            margin: 0 auto; 
-            padding: 5rem 2rem; 
-        }
-
-        /* Section */
-        .category-section { 
-            margin-top: 3rem; 
-        }
-        
-        .section-header {
-            text-align: center;
-            margin-bottom: 3rem;
-        }
-        
-        .section-header h2 {
-            font-size: 2.5rem;
-            font-weight: 700;
-            margin-bottom: 1rem;
-            color: var(--dark);
-        }
-        
-        .section-header p {
-            font-size: 1.1rem;
-            color: var(--gray);
-            max-width: 600px;
-            margin: 0 auto;
-        }
-
-        .category-header { 
-            background: white; 
-            padding: 1.5rem 2rem; 
-            border-radius: 15px; 
-            margin-bottom: 2rem; 
-            box-shadow: var(--card-shadow); 
-            display:flex; 
-            justify-content:space-between; 
-            align-items:center; 
-            transition: var(--transition);
-        }
-        
-        .category-header:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 30px rgba(0,0,0,0.1);
-        }
-        
-        .category-title { 
-            font-size: 1.5rem; 
-            color: var(--dark); 
-            font-weight: 700; 
-        }
-        
-        .category-sub { 
-            color: var(--gray); 
-            font-size: 1rem; 
-        }
-
-        /* Grille cartes */
-        .ateliers-grid { 
-            display: grid; 
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); 
-            gap: 2rem; 
-        }
-
-        .atelier-card {
-            background: white; 
-            border-radius: 15px; 
-            padding: 2rem; 
-            box-shadow: var(--card-shadow);
-            transition: var(--transition); 
-            text-decoration: none; 
-            color: inherit; 
-            position: relative; 
-            overflow: hidden;
-            height: 100%;
-            display: flex;
-            flex-direction: column;
-        }
-        
-        .atelier-card::before {
-            content: ''; 
-            position: absolute; 
-            top: 0; 
-            left: 0; 
-            width: 100%; 
-            height: 5px;
-            background: linear-gradient(90deg, var(--primary), var(--secondary)); 
-            transform: scaleX(0); 
-            transform-origin:left; 
-            transition: transform .3s ease;
-        }
-        
-        .atelier-card:hover { 
-            transform: translateY(-10px); 
-            box-shadow: 0 20px 40px rgba(0,0,0,0.12); 
-        }
-        
-        .atelier-card:hover::before { 
-            transform: scaleX(1); 
-        }
-
-        .atelier-icon {
-            width: 70px; 
-            height: 70px; 
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            border-radius: 50%; 
-            display:flex; 
-            align-items:center; 
-            justify-content:center; 
-            color:white; 
-            font-size:1.5rem; 
-            font-weight:700; 
-            margin-bottom: 1.5rem; 
-        }
-        
-        .atelier-title { 
-            font-size: 1.3rem; 
-            color: var(--dark); 
-            margin-bottom: 1rem; 
-            font-weight: 700; 
-        }
-        
-        .atelier-description { 
-            color: var(--gray); 
-            font-size: 1rem; 
-            margin-bottom: 1.5rem; 
-            line-height:1.5; 
-            flex-grow: 1;
-        }
-        
-        .atelier-badge { 
-            display:inline-block; 
-            padding: 0.4rem 1rem; 
-            background: rgba(16, 185, 129, 0.1); 
-            color: var(--primary); 
-            border-radius: 20px; 
-            font-weight:700; 
-            font-size:0.85rem; 
-            margin-bottom: 1.5rem;
-        }
-
-        .badge-mongo { 
-            background: rgba(0, 192, 139, 0.1); 
-            color: #00c08b; 
-        }
-        
-        .badge-react {
-            background: rgba(97, 218, 251, 0.1);
-            color: #21a1f1;
-        }
-        
-        .badge-laravel {
-            background: rgba(255, 45, 32, 0.1);
-            color: #ff2d20;
-        }
-
-        /* bouton "Voir détails" pour chaque carte */
-        .details-btn{
-            display:inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            margin-top: auto;
-            padding:0.7rem 1.2rem;
-            background:linear-gradient(90deg, var(--primary), var(--secondary));
-            color:#fff;
-            border-radius:10px;
-            font-weight:600;
-            text-decoration:none;
-            font-size:0.95rem;
-            transition: var(--transition);
-            width: fit-content;
-        }
-        
-        .details-btn:hover{ 
-            transform: translateY(-3px);
-            box-shadow: 0 5px 15px rgba(16, 185, 129, 0.3);
-        }
-
-        /* Footer */
-        footer { 
-            text-align:center; 
-            padding: 3rem 2rem; 
-            color: var(--gray); 
-            background: var(--dark);
-            margin-top: 5rem; 
-        }
-        
-        .footer-content {
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-        
-        .footer-links {
-            display: flex;
-            justify-content: center;
-            gap: 2rem;
-            margin: 2rem 0;
-        }
-        
-        .footer-links a {
-            color: var(--light);
-            text-decoration: none;
-            transition: var(--transition);
-        }
-        
-        .footer-links a:hover {
-            color: var(--primary-light);
-        }
-
-        /* Responsive */
-        @media (max-width: 992px) {
-            .hero-content {
-                grid-template-columns: 1fr;
-                text-align: center;
-            }
-            
-            .hero-text h1 {
-                font-size: 2.8rem;
-            }
-            
-            .hero-text p {
-                max-width: 100%;
-            }
-            
-            .hero-btns {
-                justify-content: center;
-            }
-        }
-        
-        @media (max-width: 768px) {
-            nav { 
-                flex-direction: column; 
-                gap: 1rem; 
-            }
-            
-            .nav-links { 
-                gap: 0.8rem; 
-                flex-wrap: wrap; 
-                justify-content:center; 
-            }
-            
-            .hero-text h1 { 
-                font-size: 2.2rem; 
-            }
-            
-            .container { 
-                padding: 3rem 1rem; 
-            }
-            
-            .ateliers-grid { 
-                grid-template-columns: 1fr; 
-                gap: 1.5rem; 
-            }
-            
-            .category-header {
-                flex-direction: column;
-                gap: 1rem;
-                text-align: center;
-            }
-            
-            .footer-links {
-                flex-direction: column;
-                gap: 1rem;
-            }
-        }
-    </style>
+    <link rel="stylesheet" href="assets/portfolio.css">
 </head>
-<body>
-    <header>
-        <nav>
-            <div class="logo">ZCN</div>
-            <div class="nav-links">
-                <a href="#home">Accueil</a>
-                <a href="#tsql">MySQL</a>
-                <a href="#mongodb">MongoDB</a>
-                <a href="#react">JavaScript</a>
-                <a href="#react-advanced">React</a>
-                <a href="#laravel">Laravel</a>
-            </div>
-            <div class="user-profile">
-                <div class="user-icon">ZC</div>
-                <span>Zaid Charif Nejjar</span>
-            </div>
-        </nav>
-    </header>
+<body data-page="home">
+    <div class="noise"></div>
+    <div class="transition-overlay"></div>
 
-    <section class="hero-section" id="home">
-        <div class="hero-content">
-            <div class="hero-text">
-                <h1>Développeur Web Full Stack </h1>
-                <div class="hero-btns">
-                    <a href="#tsql" class="btn btn-primary">
-                        <i class="fas fa-database"></i> Voir mes projets
-                    </a>
-    
-                </div>
-            </div>
-            <div class="hero-image">
-                <div class="profile-card">
-                    <img src="WhatsApp Image 2025-12-09 à 19.12.09_4bbef997.jpg" alt="" style="width: 130px; border-radius: 50%; height: 140px;">
-                    <h2>Zaid Charif Nejjar</h2>
-                    <p>Développeur Full Stack</p>
-                   
-            </div>
-        </div>
-    </section>
-
-    <main class="container">
-        <div class="section-header">
-            <h2>Mes Ateliers & Projets</h2>
-            <p>Une collection de mes travaux pratiques en développement et gestion de bases de données</p>
-        </div>
-
-        <!-- MySQL Section -->
-        <section class="category-section" id="tsql">
-            <div class="category-header">
+    <main class="page-shell">
+        <!-- Hero Section -->
+        <section class="hero">
+            <div class="container hero-grid">
                 <div>
-                    <h2 class="category-title">Ateliers MySQL</h2>
-                    <div class="category-sub">Guides, scripts et rapports</div>
+                    <p class="tagline reveal">Portfolio Personnel</p>
+                    <h1 class="reveal" style="animation-delay: 0.05s;">Hello I'm<br><span class="name">Zaid Charif Nejjar</span></h1>
+                    <h3 class="reveal" style="animation-delay: 0.1s;" data-typewriter="Developpeur Full Stack" data-type-speed="45">Developpeur Full Stack</h3>
+                    <p class="reveal" style="animation-delay: 0.15s;">
+                        Je conçois des applications web modernes, orientées performance et expérience utilisateur.
+                        Mon parcours combine bases de donnees, backend robuste et interfaces front-end interactives.
+                    </p>
+                    <div class="btn-row reveal" style="animation-delay: 0.2s;">
+                        <a href="portfolio.html" class="btn-main"><i class="fa-solid fa-download"></i> Voir Mes Projets</a>
+                        <a href="contact.html" class="btn-ghost"><i class="fa-regular fa-paper-plane"></i> Me Contacter</a>
+                        <a href="CV_Zaid_Charif_Nejjar.pdf" class="btn-ghost"><i class="fa-regular fa-file-lines"></i> Mon CV</a>
+                        <div class="socials">
+                            <a href="https://github.com/zaidcharif43-bot" target="_blank" rel="noopener" aria-label="GitHub"><i class="fa-brands fa-github"></i></a>
+                            <a href="https://www.linkedin.com/in/zaid-charif-nejjar" target="_blank" rel="noopener" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+                            <a href="contact.html" aria-label="Email"><i class="fa-regular fa-envelope"></i></a>
+                        </div>
+                    </div>
                 </div>
-                <div class="category-sub">6 ateliers</div>
-            </div>
-
-            <div class="ateliers-grid">
-                <a href="Création de la base .pdf" target="_blank" class="atelier-card">
-                    <div class="atelier-icon">1</div>
-                    <h3 class="atelier-title">Atelier 1 - Création des tables</h3>
-                    <p class="atelier-description">Création des tables, clés primaires & étrangères, et insertion de données de test.</p>
-                    <span class="atelier-badge">MySQL</span>
-                    <div class="details-btn">
-                        <i class="fas fa-external-link-alt"></i> Voir le rapport
-                    </div>
-                </a>
-
-                <a href="Rapport.pdf" target="_blank" class="atelier-card">
-                    <div class="atelier-icon">2</div>
-                    <h3 class="atelier-title">Atelier 2 - Curseurs & procédures</h3>
-                    <p class="atelier-description">Exemples d'utilisation des curseurs et des procédures stockées.</p>
-                    <span class="atelier-badge">MySQL</span>
-                    <div class="details-btn">
-                        <i class="fas fa-external-link-alt"></i> Voir le rapport
-                    </div>
-                </a>
-
-                <a href="Rapport 2.pdf" target="_blank" class="atelier-card">
-                    <div class="atelier-icon">3</div>
-                    <h3 class="atelier-title">Atelier 3 - Triggers</h3>
-                    <p class="atelier-description">Conception et tests de triggers pour automatiser des actions en base.</p>
-                    <span class="atelier-badge">MySQL</span>
-                    <div class="details-btn">
-                        <i class="fas fa-external-link-alt"></i> Voir le rapport
-                    </div>
-                </a>
-
-                <a href="Rapport 4.pdf" target="_blank" class="atelier-card">
-                    <div class="atelier-icon">4</div>
-                    <h3 class="atelier-title">Atelier 4 - EFF : Gestion véhicules (DKM)</h3>
-                    <p class="atelier-description">Étude de cas sur la gestion des véhicules de service, modèles et requêtes.</p>
-                    <span class="atelier-badge">MySQL</span>
-                    <div class="details-btn">
-                        <i class="fas fa-external-link-alt"></i> Voir le rapport
-                    </div>
-                </a>
-
-                <a href="Rapport6.pdf" target="_blank" class="atelier-card">
-                    <div class="atelier-icon">6</div>
-                    <h3 class="atelier-title">Atelier 6 - Données notariales</h3>
-                    <p class="atelier-description">Gestion des données notariales : fonctions, procédures et triggers.</p>
-                    <span class="atelier-badge">MySQL</span>
-                    <div class="details-btn">
-                        <i class="fas fa-external-link-alt"></i> Voir le rapport
-                    </div>
-                </a>
-
-                <a href="Rapport7.pdf" target="_blank" class="atelier-card">
-                    <div class="atelier-icon">7</div>
-                    <h3 class="atelier-title">Atelier 7 - Événements & inscriptions</h3>
-                    <p class="atelier-description">Système d'inscription et gestion d'événements, avec scripts d'exemple.</p>
-                    <span class="atelier-badge">MySQL</span>
-                    <div class="details-btn">
-                        <i class="fas fa-external-link-alt"></i> Voir le rapport
-                    </div>
-                </a>
-            </div>
-        </section>
-
-        <!-- MongoDB Section -->
-        <section class="category-section" id="mongodb">
-            <div class="category-header">
                 <div>
-                    <h2 class="category-title">Ateliers MongoDB</h2>
-                    <div class="category-sub">NoSQL — Modélisation et requêtes</div>
-                </div>
-                <div class="category-sub">7 ateliers</div>
-            </div>
-
-            <div class="ateliers-grid">
-                <a href="MongoDB 1.pdf" target="_blank" class="atelier-card">
-                    <div class="atelier-icon" style="background: linear-gradient(135deg,#00c08b,#007a5a);">1</div>
-                    <h3 class="atelier-title">Atelier MongoDB 1 - Modélisation & insertion</h3>
-                    <p class="atelier-description">Création de la base, modélisation documentaire et génération/import des données.</p>
-                    <span class="atelier-badge badge-mongo">MongoDB</span>
-                    <div class="details-btn">
-                        <i class="fas fa-external-link-alt"></i> Voir le rapport
-                    </div>
-                </a>
-
-                <a href="MongoDB2 .pdf" target="_blank" class="atelier-card">
-                    <div class="atelier-icon" style="background: linear-gradient(135deg,#00b48a,#0a8a62);">2</div>
-                    <h3 class="atelier-title">Atelier MongoDB 2 - Agrégations avancées</h3>
-                    <p class="atelier-description">Pipelines d'agrégation, indexation et optimisation des requêtes avec exemples pratiques.</p>
-                    <span class="atelier-badge badge-mongo">MongoDB</span>
-                    <div class="details-btn">
-                        <i class="fas fa-external-link-alt"></i> Voir le rapport
-                    </div>
-                </a>
-                
-                <a href="MongoDB 3 .pdf" target="_blank" class="atelier-card">
-                    <div class="atelier-icon" style="background: linear-gradient(135deg,#00c08b,#007a5a);">3</div>
-                    <h3 class="atelier-title">Atelier MongoDB 3 - Modélisation & insertion</h3>
-                    <p class="atelier-description">Création de la base, modélisation documentaire et génération/import des données.</p>
-                    <span class="atelier-badge badge-mongo">MongoDB</span>
-                    <div class="details-btn">
-                        <i class="fas fa-external-link-alt"></i> Voir le rapport
-                    </div>
-                </a>
-                
-                <a href="MongoDb 4 .pdf" target="_blank" class="atelier-card">
-                    <div class="atelier-icon" style="background: linear-gradient(135deg,#00c08b,#007a5a);">4</div>
-                    <h3 class="atelier-title">Atelier MongoDB 4 - Modélisation & insertion</h3>
-                    <p class="atelier-description">Création de la base, modélisation documentaire et génération/import des données.</p>
-                    <span class="atelier-badge badge-mongo">MongoDB</span>
-                    <div class="details-btn">
-                        <i class="fas fa-external-link-alt"></i> Voir le rapport
-                    </div>
-                </a>
-                
-                <a href="MongoDB 5 .pdf" target="_blank" class="atelier-card">
-                    <div class="atelier-icon" style="background: linear-gradient(135deg,#00c08b,#007a5a);">5</div>
-                    <h3 class="atelier-title">Atelier MongoDB 5 - Modélisation & insertion</h3>
-                    <p class="atelier-description">Création de la base, modélisation documentaire et génération/import des données.</p>
-                    <span class="atelier-badge badge-mongo">MongoDB</span>
-                    <div class="details-btn">
-                        <i class="fas fa-external-link-alt"></i> Voir le rapport
-                    </div>
-                </a>
-                
-                <a href="MongoDB 6.pdf" target="_blank" class="atelier-card">
-                    <div class="atelier-icon" style="background: linear-gradient(135deg,#00c08b,#007a5a);">6</div>
-                    <h3 class="atelier-title">Atelier MongoDB 6 - Modélisation & insertion</h3>
-                    <p class="atelier-description">Création de la base, modélisation documentaire et génération/import des données.</p>
-                    <span class="atelier-badge badge-mongo">MongoDB</span>
-                    <div class="details-btn">
-                        <i class="fas fa-external-link-alt"></i> Voir le rapport
-                    </div>
-                </a>
-                
-                <a href="Mongo7 db .pdf" target="_blank" class="atelier-card">
-                    <div class="atelier-icon" style="background: linear-gradient(135deg,#00c08b,#007a5a);">7</div>
-                    <h3 class="atelier-title">Atelier MongoDB 7 - Modélisation & insertion</h3>
-                    <p class="atelier-description">Création de la base, modélisation documentaire et génération/import des données.</p>
-                    <span class="atelier-badge badge-mongo">MongoDB</span>
-                    <div class="details-btn">
-                        <i class="fas fa-external-link-alt"></i> Voir le rapport
-                    </div>
-                </a>
-            </div>
-        </section>
-
-        <!-- JavaScript Section -->
-        <section class="category-section" id="react">
-            <div class="category-header">
-                <div>
-                    <h2 class="category-title">Ateliers JavaScript</h2>
-                    <div class="category-sub">Front‑end et applications interactives</div>
-                </div>
-                <div class="category-sub">2 ateliers</div>
-            </div>
-
-            <div class="ateliers-grid">
-                <div class="atelier-card">
-                    <div class="atelier-icon">JS1</div>
-                    <h3 class="atelier-title">Atelier 1 - Pierre‑Feuille‑Ciseaux</h3>
-                    <p class="atelier-description">Jeu interactif : pierre, feuille, ciseaux.</p>
-                    <span class="atelier-badge">JavaScript</span>
-                    <div>
-                        <a class="details-btn" href="at1.html" target="_blank">
-                            <i class="fas fa-gamepad"></i> Jouer
-                        </a>
-                    </div>
-                </div>
-
-                <div class="atelier-card">
-                    <div class="atelier-icon">JS2</div>
-                    <h3 class="atelier-title">Atelier 2 - Liste Qur'an</h3>
-                    <p class="atelier-description">Mini‑site : lister les sourates depuis une API.</p>
-                    <span class="atelier-badge">JavaScript</span>
-                    <div>
-                        <a class="details-btn" href="at2.html" target="_blank">
-                            <i class="fas fa-external-link-alt"></i> Voir détails
-                        </a>
+                    <div class="avatar-wrap reveal" style="animation-delay: 0.25s;">
+                        <img src="WhatsApp Image 2025-12-09 à 19.12.09_4bbef997.jpg" alt="Photo de Zaid Charif Nejjar">
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- React Section -->
-        <section class="category-section" id="react-advanced">
-            <div class="category-header">
-                <div>
-                    <h2 class="category-title">Ateliers React (Avancé)</h2>
-                    <div class="category-sub">Composants avancés, performance et patterns</div>
-                </div>
-                <div class="category-sub">1 atelier</div>
-            </div>
+        <!-- Highlights Section -->
+        <section class="highlights">
+            <div class="container">
+                <div class="highlights-grid">
+                    <div class="highlight-card reveal flip-card" style="animation-delay: 0.05s;">
+                        <div class="card-inner">
+                            <div class="card-front">
+                                <div class="highlight-icon">
+                                    <i class="fa-solid fa-code"></i>
+                                </div>
+                                <h3>Full Stack</h3>
+                            </div>
+                            <div class="card-back">
+                                <p class="card-description" data-hover-typewriter="HTML5, CSS3, JavaScript, React, Node.js, Laravel, MySQL, MongoDB" data-type-speed="35">HTML5, CSS3, JavaScript, React, Node.js, Laravel, MySQL, MongoDB</p>
+                            </div>
+                        </div>
+                        <div class="highlight-accent"></div>
+                    </div>
 
-            <div class="ateliers-grid">
-                <a href="https://react-at1-69660a.gitlab.io/" target="_blank" class="atelier-card">
-                    <div class="atelier-icon" style="background: linear-gradient(135deg,#61dafb,#21a1f1);">R</div>
-                    <h3 class="atelier-title">Atelier 1- Hooks avancés & optimisation</h3>
-                    <p class="atelier-description">Techniques avancées avec hooks personnalisés, mémoïsation et optimisation des rendus.</p>
-                    <span class="atelier-badge badge-react">React</span>
-                    <div class="details-btn">
-                        <i class="fas fa-external-link-alt"></i> Voir le site
+                    <div class="highlight-card reveal flip-card" style="animation-delay: 0.1s;">
+                        <div class="card-inner">
+                            <div class="card-front">
+                                <div class="highlight-icon">
+                                    <i class="fa-solid fa-rocket"></i>
+                                </div>
+                                <h3>Performance</h3>
+                            </div>
+                            <div class="card-back">
+                                <p class="card-description" data-hover-typewriter="Applications optimisées pour la vitesse, l'accessibilité et l'expérience utilisateur premium" data-type-speed="32">Applications optimisées pour la vitesse, l'accessibilité et l'expérience utilisateur premium</p>
+                            </div>
+                        </div>
+                        <div class="highlight-accent"></div>
                     </div>
-                </a>
-                 <a href="https://react-tp2-c851e5.gitlab.io/" target="_blank" class="atelier-card">
-                    <div class="atelier-icon" style="background: linear-gradient(135deg,#61dafb,#21a1f1);">R</div>
-                    <h3 class="atelier-title">Atelier 2 - props</h3>
-                    <p class="atelier-description">Techniques avancées  personnalisés, mémoïsation et optimisation des rendus.</p>
-                    <span class="atelier-badge badge-react">React</span>
-                    <div class="details-btn">
-                        <i class="fas fa-external-link-alt"></i> Voir le site
+
+                    <div class="highlight-card reveal flip-card" style="animation-delay: 0.15s;">
+                        <div class="card-inner">
+                            <div class="card-front">
+                                <div class="highlight-icon">
+                                    <i class="fa-solid fa-palette"></i>
+                                </div>
+                                <h3>Design Modern</h3>
+                            </div>
+                            <div class="card-back">
+                                <p class="card-description" data-hover-typewriter="Interfaces élégantes avec animations fluides et transitions sophistiquées" data-type-speed="35">Interfaces élégantes avec animations fluides et transitions sophistiquées</p>
+                            </div>
+                        </div>
+                        <div class="highlight-accent"></div>
                     </div>
-                </a>
-                <a href="https://react-tp3-8fa68a.gitlab.io/" target="_blank" class="atelier-card">
-                    <div class="atelier-icon" style="background: linear-gradient(135deg,#61dafb,#21a1f1);">R</div>
-                    <h3 class="atelier-title">Atelier 3 - Hooks</h3>
-                    <p class="atelier-description">Techniques avancées avec hooks personnalisés, mémoïsation et optimisation des rendus.</p>
-                    <span class="atelier-badge badge-react">React</span>
-                    <div class="details-btn">
-                        <i class="fas fa-external-link-alt"></i> Voir le site
+
+                    <div class="highlight-card reveal flip-card" style="animation-delay: 0.2s;">
+                        <div class="card-inner">
+                            <div class="card-front">
+                                <div class="highlight-icon">
+                                    <i class="fa-solid fa-handshake"></i>
+                                </div>
+                                <h3>Collaboration</h3>
+                            </div>
+                            <div class="card-back">
+                                <p class="card-description" data-hover-typewriter="Travail d'équipe, communication claire, et livraison orientée résultats" data-type-speed="35">Travail d'équipe, communication claire, et livraison orientée résultats</p>
+                            </div>
+                        </div>
+                        <div class="highlight-accent"></div>
                     </div>
-                </a>
-                <a href="https://react-at4-955392.gitlab.io/" target="_blank" class="atelier-card">
-                    <div class="atelier-icon" style="background: linear-gradient(135deg,#61dafb,#21a1f1);">R</div>
-                    <h3 class="atelier-title">Atelier 4 - Gestion d'état avancée</h3>
-                    <p class="atelier-description">Utilisation de Context useRef dans les applications React.</p>
-                    <span class="atelier-badge badge-react">React</span>
-                    <div class="details-btn">
-                        <i class="fas fa-external-link-alt"></i> Voir le site
-                    </div>
-                </a>
-                <a href="https://react-at5-f38e71.gitlab.io/"target="_blank" class="atelier-card" >
-                    <div class="atelier-icon" style="background: linear-gradient(135deg,#61dafb,#21a1f1);">R</div>
-                    <h3 class="atelier-title">Atelier 5 - Tests & Déploiement</h3>
-                    <p class="atelier-description">Utilisation de UseEffect pour gérer les effets secondaires dans les composants React.</p>
-                    <span class="atelier-badge badge-react">React</span>
-                    <div class="details-btn">
-                        <i class="fas fa-external-link-alt"></i> Voir le site
-                    </div>
-                </a>
-                <a href="https://atelier7-rc-df5d00.gitlab.io/" target="_blank" class="atelier-card">
-                    <div class="atelier-icon" style="background: linear-gradient(135deg,#61dafb,#21a1f1);">R</div>
-                    <h3 class="atelier-title">Atelier 6 -Tests & Déploiement </h3>
-                    <p class="atelier-description">WebSite planifyTodo pour gestions des taches</p>
-                    <span class="atelier-badge badge-react">React</span>
-                    <div class="details-btn">
-                        <i class="fas fa-external-link-alt"></i> Voir le site
-                    </div>
-                </a>
-                <a href="https://efm-react-6ca6d3.gitlab.io/" target="_blank" class="atelier-card">
-                    <div class="atelier-icon" style="background: linear-gradient(135deg,#61dafb,#21a1f1);">R</div>
-                    <h3 class="atelier-title">EFM -2023</h3>
-                    <p class="atelier-description">Gestion des voiture et liste des salaries</p>
-                    <span class="atelier-badge badge-react">React</span>
-                    <div class="details-btn">
-                        <i class="fas fa-external-link-alt"></i> Voir le site
-                    </div>
-                </a>
-                <a href="https://atelier10-rc-349bc7.gitlab.io/" target="_blank" class="atelier-card">
-                    <div class="atelier-icon" style="background: linear-gradient(135deg,#61dafb,#21a1f1);">R</div>
-                    <h3 class="atelier-title">Atelier 9 - Hooks avancés & redux</h3>
-                    <p class="atelier-description">Comprendre Redux.</p>
-                    <span class="atelier-badge badge-react">React</span>
-                    <div class="details-btn">
-                        <i class="fas fa-external-link-alt"></i> Voir le site
-                    </div>
-                </a>
-                <a href="https://redux-at11-660ca9.gitlab.io/" target="_blank" class="atelier-card">
-                    <div class="atelier-icon" style="background: linear-gradient(135deg,#61dafb,#21a1f1);">R</div>
-                    <h3 class="atelier-title">Atelier 10 - Redux avancé</h3>
-                    <p class="atelier-description">Techniques avancées avec Redux.</p>
-                    <span class="atelier-badge badge-react">React</span>
-                    <div class="details-btn">
-                        <i class="fas fa-external-link-alt"></i> Voir le site
-                    </div>
-                </a>
-                <a href="https://atelier11-rc-01359c.gitlab.io/" target="_blank" class="atelier-card">
-                    <div class="atelier-icon" style="background: linear-gradient(135deg,#61dafb,#21a1f1);">R</div>
-                    <h3 class="atelier-title">Atelier 11 - Redux avancé</h3>
-                    <p class="atelier-description">Techniques avancées avec Redux Toolkit.</p>
-                    <span class="atelier-badge badge-react">React</span>
-                    <div class="details-btn">
-                        <i class="fas fa-external-link-alt"></i> Voir le site
-                    </div>
-                </a>
-                <a href="https://atelier12-rc-f74f84.gitlab.io/" target="_blank" class="atelier-card">
-                    <div class="atelier-icon" style="background: linear-gradient(135deg,#61dafb,#21a1f1);">R</div>
-                    <h3 class="atelier-title">Atelier 12 - Performance & optimisation</h3>
-                    <p class="atelier-description">Optimisation des performances dans les applications React.</p>
-                    <span class="atelier-badge badge-react">React</span>
-                    <div class="details-btn">
-                        <i class="fas fa-external-link-alt"></i> Voir le site
-                    </div>
-                </a>
-                <a href="https://atelier13-rc-201b78.gitlab.io/" target="_blank" class="atelier-card">
-                    <div class="atelier-icon" style="background: linear-gradient(135deg,#61dafb,#21a1f1);">R</div>
-                    <h3 class="atelier-title">Atelier 13 - Calcul des frais</h3>
-                    <p class="atelier-description">Application React pour le calcul des frais professionnels.</p>
-                    <span class="atelier-badge badge-react">React</span>
-                    <div class="details-btn">
-                        <i class="fas fa-external-link-alt"></i> Voir le site
-                    </div>
-                </a>
+                </div>
             </div>
-            
         </section>
 
-        <!-- Laravel Section -->
-        <section class="category-section" id="laravel">
-            <div class="category-header">
-                <div>
-                    <h2 class="category-title">Ateliers Laravel</h2>
-                    <div class="category-sub">Framework PHP — MVC et développement web</div>
-                </div>
-                <div class="category-sub">10 ateliers</div>
-            </div>
-
-            <div class="ateliers-grid">
-                <a href="Atelier 1 Laravel Introduction à Laravel.pdf" target="_blank" class="atelier-card">    
-                    <div class="atelier-icon" style="background: linear-gradient(135deg, #ff2d20, #e3110f);">L1</div>
-                    <h3 class="atelier-title">Atelier 1 - Installation & Configuration</h3>
-                    <p class="atelier-description">Installation de Laravel, configuration de l'environnement et premiers pas avec Artisan CLI.</p>
-                    <span class="atelier-badge badge-laravel">Laravel</span>
-                    <div class="details-btn">
-                        <i class="fas fa-external-link-alt"></i> Voir le projet
-                    </div>
-                </a>
-
-                <a href="Atelier2 Pratique Complet  Les Vues et le Moteur Blade dans Laravel.pdf" target="_blank" class="atelier-card">
-                    <div class="atelier-icon" style="background: linear-gradient(135deg, #ff4d30, #e3210f);">L2</div>
-                    <h3 class="atelier-title">Atelier 2 - Routess et Les Vues et le Moteur Blade dans Laravel</h3>
-                    <p class="atelier-description">Gestion des routes</p>
-                    <span class="atelier-badge badge-laravel">Laravel</span>
-                    <div class="details-btn">
-                        <i class="fas fa-external-link-alt"></i> Voir le projet
-                    </div>
-                </a>
-                <a href="https://ateler3.vercel.app/" target="_blank" class="atelier-card">
-                    <div class="atelier-icon" style="background: linear-gradient(135deg, #ff2d20, #e3110f);">L3</div>
-                    <h3 class="atelier-title">Atelier 3 - Contrôleurs et gestion des requêtes</h3>
-                    <p class="atelier-description">Contrôleurs et gestion des requêtes</p>
-                    <span class="atelier-badge badge-laravel">Laravel</span>
-                    <div class="details-btn">
-                        <i class="fas fa-external-link-alt"></i> Voir le projet
-                    </div>
-                </a>
-                <a href="https://atelier4-seven.vercel.app/" target="_blank" class="atelier-card">
-                    <div class="atelier-icon" style="background: linear-gradient(135deg, #ff2d20, #e3110f);">L4</div>
-                    <h3 class="atelier-title">Atelier 4 - website store </h3>
-                    <p class="atelier-description">Choix du Niche et Design Statique de la Version Ecom_V1 </p>
-                    <span class="atelier-badge badge-laravel">Laravel</span>
-                    <div class="details-btn">
-                        <i class="fas fa-external-link-alt"></i> Voir le projet
-                    </div>
-                </a>
-                <a href="laravel2.pdf" target="_blank" class="atelier-card">
-                    <div class="atelier-icon" style="background: linear-gradient(135deg, #ff2d20, #e3110f);">L5</div>
-                    <h3 class="atelier-title">Atelier 5 - Gestion des modèles, migrations, et seeding</h3>
-                    <p class="atelier-description">modèles, migrations, et seeding </p>
-                    <span class="atelier-badge badge-laravel">Laravel</span>
-                    <div class="details-btn">
-                        <i class="fas fa-external-link-alt"></i> Voir le projet
-                    </div>
-                </a>
-
-                <div class="atelier-card">
-                    <div class="atelier-icon" style="background: linear-gradient(135deg, #ff2d20, #e3110f);">L6</div>
-                    <h3 class="atelier-title">Atelier 6 </h3>
-                    <p class="atelier-description">déploiement sur une plateforme (Vercel / autre)</p>
-                    <span class="atelier-badge badge-laravel">Laravel</span>
-                    <div style="display:flex; gap:0.5rem; margin-top:auto; flex-wrap:wrap;">
-                        <a class="details-btn" href="mongoch.pdf" target="_blank" style="font-size:0.85rem; padding:0.5rem 0.8rem;">
-                            <i class="fas fa-file-pdf"></i> Rapport
+        <!-- CTA Section -->
+        <section class="hero-cta">
+            <div class="container">
+                <div class="cta-content reveal">
+                    <h2>Prêt à démarrer votre projet?</h2>
+                    <p>Je suis disponible pour discuter de vos idées et explorer les opportunités de collaboration.</p>
+                    <div class="cta-actions">
+                        <a href="contact.html" class="btn-main">
+                            <i class="fa-solid fa-envelope"></i>
+                            Commencer une conversation
                         </a>
-                        <a class="details-btn" href="https://github.com/zaidcharif43-bot/atelier5-lv" target="_blank" style="font-size:0.85rem; padding:0.5rem 0.8rem;">
-                            <i class="fab fa-github"></i> GitHub
-                        </a>
-                        <a class="details-btn" href="https://atelier5-lv.vercel.app/" target="_blank" style="font-size:0.85rem; padding:0.5rem 0.8rem;">
-                            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" style="vertical-align:middle; margin-right:4px;" aria-hidden="true"><path d="M12 3L2 21h20L12 3z"/></svg> Vercel
-                        </a>
-                    </div>
-                </div>
-
-                <div class="atelier-card">
-                    <div class="atelier-icon" style="background: linear-gradient(135deg, #ff2d20, #e3110f);">L7</div>
-                    <h3 class="atelier-title">Atelier 7 </h3>
-                    <p class="atelier-description">déploiement sur une plateforme (Vercel / autre).</p>
-                    <span class="atelier-badge badge-laravel">Laravel</span>
-                    <div style="display:flex; gap:0.5rem; margin-top:auto; flex-wrap:wrap;">
-                        <a class="details-btn" href="https://github.com/zaidcharif43-bot/atelier6" target="_blank" style="font-size:0.85rem; padding:0.5rem 0.8rem;">
-                            <i class="fab fa-github"></i> GitHub
-                        </a>
-                        <a class="details-btn" href="https://atelier6-chi.vercel.app/" target="_blank" style="font-size:0.85rem; padding:0.5rem 0.8rem;">
-                            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" style="vertical-align:middle; margin-right:4px;" aria-hidden="true"><path d="M12 3L2 21h20L12 3z"/></svg> Vercel
-                        </a>
-                    </div>
-                </div>
-                  <div class="atelier-card">
-                    <div class="atelier-icon" style="background: linear-gradient(135deg, #ff2d20, #e3110f);">L8</div>
-                    <h3 class="atelier-title">Atelier 8 </h3>
-                    <p class="atelier-description">Ajout d’un Nouveau Produit sur un Site E-commerce</p>
-                    <span class="atelier-badge badge-laravel">Laravel</span>
-                    <div style="display:flex; gap:0.5rem; margin-top:auto; flex-wrap:wrap;">
-                        <a class="details-btn" href="lvatelier8 .pdf" target="_blank" style="font-size:0.85rem; padding:0.5rem 0.8rem;">
-                            <i class="fas fa-file-pdf"></i> Rapport
-                        </a>
-                        <a class="details-btn" href="https://github.com/zaidcharif43-bot/atelier8" target="_blank" style="font-size:0.85rem; padding:0.5rem 0.8rem;">
-                            <i class="fab fa-github"></i> GitHub
-                        </a>
-                    </div>
-                </div>
-                  <div class="atelier-card">
-                    <div class="atelier-icon" style="background: linear-gradient(135deg, #ff2d20, #e3110f);">L9</div>
-                    <h3 class="atelier-title">Atelier 9 </h3>
-                    <p class="atelier-description">Laravel Site Ecommerce : Modification et Suppression des Articles</p>
-                    <span class="atelier-badge badge-laravel">Laravel</span>
-                    <div style="display:flex; gap:0.5rem; margin-top:auto; flex-wrap:wrap;">
-                        <a class="details-btn" href="lvatelier9.pdf" target="_blank" style="font-size:0.85rem; padding:0.5rem 0.8rem;">
-                            <i class="fas fa-file-pdf"></i> Rapport
-                        </a>
-                        <a class="details-btn" href="https://github.com/zaidcharif43-bot/atelier9" target="_blank" style="font-size:0.85rem; padding:0.5rem 0.8rem;">
-                            <i class="fab fa-github"></i> GitHub
-                        </a>
-                    </div>
-                </div>
-                  <div class="atelier-card">
-                    <div class="atelier-icon" style="background: linear-gradient(135deg, #ff2d20, #e3110f);">L10</div>
-                    <h3 class="atelier-title">Atelier 10-11-12 - Authentification et Gestion de Panier</h3>
-                    <p class="atelier-description">Appliquer authentification et gestion de panier dans Laravel avec système de connexion utilisateur</p>
-                    <span class="atelier-badge badge-laravel">Laravel</span>
-                    <div style="display:flex; gap:0.5rem; margin-top:auto; flex-wrap:wrap;">
-    
-                        <a class="details-btn" href="https://github.com/zaidcharif43-bot/atelier11" target="_blank" style="font-size:0.85rem; padding:0.5rem 0.8rem;">
-                            <i class="fab fa-github"></i> GitHub
-                        </a>
-                        <a class="details-btn" href="https://atelier11.vercel.app/" target="_blank" style="font-size:0.85rem; padding:0.5rem 0.8rem;">
-                            <i class="fas fa-external-link-alt"></i> vercel
+                        <a href="portfolio.html" class="btn-ghost">
+                            <i class="fa-solid fa-briefcase"></i>
+                            Voir le portfolio
                         </a>
                     </div>
                 </div>
             </div>
-            
         </section>
     </main>
 
-    <footer id="contact">
-        <div class="footer-content">
-            <h3>Zaid Charif Nejjar</h3>
-            <p>Développeur Full Stack & Spécialiste Bases de Données</p>
-            <div class="footer-links">
-                <a href="#home">Accueil</a>
-                <a href="#tsql">MySQL</a>
-                <a href="#mongodb">MongoDB</a>
-                <a href="#react">JavaScript</a>
-                <a href="#react-advanced">React</a>
-                <a href="#laravel">Laravel</a>
-            </div>
-            <p>&copy; 2025 Portfolio de Zaid Charif Nejjar - Tous droits réservés</p>
-        </div>
-    </footer>
+    <nav class="floating-nav" aria-label="Navigation principale">
+        <a href="index.html" data-page-link="home" aria-label="Accueil"><i class="fa-solid fa-house"></i></a>
+        <a href="about.html" data-page-link="about" aria-label="A propos"><i class="fa-regular fa-user"></i></a>
+        <a href="resume.html" data-page-link="resume" aria-label="Resume"><i class="fa-regular fa-address-card"></i></a>
+        <a href="portfolio.html" data-page-link="portfolio" aria-label="Portfolio"><i class="fa-solid fa-briefcase"></i></a>
+        <a href="cv.html" data-page-link="cv" aria-label="CV"><i class="fa-regular fa-file-lines"></i></a>
+        <a href="contact.html" data-page-link="contact" aria-label="Contact"><i class="fa-regular fa-envelope"></i></a>
+    </nav>
+
+    <script src="assets/portfolio.js"></script>
 </body>
 </html>
