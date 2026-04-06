@@ -1,6 +1,33 @@
 import { AppLink } from "../components/AppLink";
 import { projects } from "../data/projects";
 
+const websiteProjects = [
+  {
+    title: "SwippyEat",
+    stack: "Node.js + React",
+    description: "Plateforme de gestion en temps reel orientee performance et parcours utilisateur fluide.",
+    image: "assets/websites/image-1775482321685.png",
+  },
+  {
+    title: "FullstackShop",
+    stack: "React",
+    description: "Boutique moderne avec interface immersive, catalogue dynamique et experience interactive.",
+    image: "assets/websites/image-1775482735925.png",
+  },
+  {
+    title: "Figrbay",
+    stack: "Laravel + React",
+    description: "Marketplace avec parcours clair, contenu structure et presentation visuelle professionnelle.",
+    image: "assets/websites/image-1775482830853.png",
+  },
+  {
+    title: "ClothesZc",
+    stack: "Laravel",
+    description: "Site e-commerce avec hero visuel fort, navigation simple et mise en avant des collections.",
+    image: "assets/websites/image-1775482948741.png",
+  },
+];
+
 function ProjectCard({ item }) {
   return (
     <article className="project-card reveal">
@@ -43,6 +70,28 @@ export function PortfolioPage() {
         <p className="tagline" style={{ textAlign: "center", marginBottom: 18 }} data-typewriter="Tous Mes Ateliers" data-type-speed="35">
           Tous Mes Ateliers
         </p>
+        <div className="website-showcase">
+          <div className="website-header reveal">
+            <h3>Mes Websites</h3>
+            <p>
+              Une selection de websites realises en Node.js, React et Laravel, presentes avec leur identite visuelle
+              en image de fond.
+            </p>
+          </div>
+
+          <div className="website-grid">
+            {websiteProjects.map((item) => (
+              <article className="website-card reveal" key={item.title} style={{ backgroundImage: `url(${item.image})` }}>
+                <div className="website-overlay">
+                  <span className="website-stack">{item.stack}</span>
+                  <h4>{item.title}</h4>
+                  <p>{item.description}</p>
+                </div>
+              </article>
+            ))}
+          </div>
+        </div>
+
         <div className="portfolio-hero reveal">
           <div className="portfolio-hero-copy">
             <span className="portfolio-kicker">Selected work</span>

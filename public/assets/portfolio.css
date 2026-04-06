@@ -1137,6 +1137,100 @@ h1, h2, h3, h4 {
     transform: translateY(-2px);
 }
 
+.website-showcase {
+    margin-top: 34px;
+}
+
+.website-showcase + .portfolio-hero {
+    margin-top: 28px;
+}
+
+.website-header {
+    margin-bottom: 16px;
+    padding: 20px;
+    border-radius: 18px;
+    border: 1px solid rgba(143, 177, 214, 0.24);
+    background:
+        radial-gradient(circle at top right, rgba(211, 173, 111, 0.18), transparent 42%),
+        linear-gradient(150deg, rgba(54, 66, 88, 0.84), rgba(33, 43, 59, 0.92));
+}
+
+.website-header h3 {
+    font-size: clamp(1.5rem, 2.8vw, 2.2rem);
+    margin-bottom: 8px;
+}
+
+.website-header p {
+    color: var(--muted);
+    line-height: 1.62;
+    max-width: 72ch;
+}
+
+.website-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px;
+}
+
+.website-card {
+    min-height: 280px;
+    border-radius: 16px;
+    position: relative;
+    overflow: hidden;
+    border: 1px solid rgba(143, 177, 214, 0.34);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    box-shadow: 0 24px 44px rgba(0, 0, 0, 0.34);
+    transition: transform 220ms ease, box-shadow 240ms ease, border-color 240ms ease;
+}
+
+.website-card::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(10, 18, 33, 0.2), rgba(10, 18, 33, 0.82));
+}
+
+.website-card:hover {
+    transform: translateY(-4px);
+    border-color: rgba(240, 210, 156, 0.82);
+    box-shadow: 0 30px 52px rgba(0, 0, 0, 0.42), 0 16px 28px rgba(211, 173, 111, 0.2);
+}
+
+.website-overlay {
+    position: relative;
+    z-index: 1;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    gap: 8px;
+    padding: 18px;
+}
+
+.website-stack {
+    align-self: flex-start;
+    padding: 5px 10px;
+    border-radius: 999px;
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    color: #102034;
+    background: linear-gradient(120deg, var(--accent), var(--accent-soft));
+}
+
+.website-overlay h4 {
+    font-size: 1.2rem;
+    line-height: 1.2;
+}
+
+.website-overlay p {
+    color: #d6e1f1;
+    line-height: 1.55;
+    max-width: 44ch;
+}
+
 .portfolio-hero.reveal {
     opacity: 0;
     transform: translateY(18px) scale(0.98);
@@ -1775,6 +1869,7 @@ h1, h2, h3, h4 {
     .cards,
     .project-grid,
     .service-grid,
+    .website-grid,
     .highlights-grid {
         grid-template-columns: repeat(2, minmax(0, 1fr));
     }
@@ -1818,6 +1913,7 @@ h1, h2, h3, h4 {
     .cards,
     .project-grid,
     .service-grid,
+    .website-grid,
     .skills-grid,
     .contact-grid,
     .about-list,
